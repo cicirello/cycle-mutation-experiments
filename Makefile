@@ -18,4 +18,6 @@ experiments: binpack
 
 .PHONY: binpack
 binpack:
-	java -cp ${JARFILE} org.cicirello.experiments.cyclemutation.BinPackingTripletExperiments 333 > ${pathToDataFiles}/bin.triplet.333.txt
+	java -cp ${JARFILE} org.cicirello.experiments.cyclemutation.BinPackingTripletExperiments 33 > ${pathToDataFiles}/bin.triplet.99.txt
+	java -cp ${JARFILE} org.cicirello.experiments.cyclemutation.BinPackingTripletExperiments 67 > ${pathToDataFiles}/bin.triplet.201.txt
+	java -cp ${JARFILE} org.cicirello.experiments.cyclemutation.BinPackingTripletExperiments 100 > ${pathToDataFiles}/bin.triplet.300.txt
