@@ -42,10 +42,10 @@ public class BinPackingTripletExperiments {
 	
 	/**
 	 * Runs the experiments.
-	 * @param args Ignored as there are no command line arguments.
+	 * @param args The args[0] is the number of triplets, which defaults to 100.
 	 */
 	public static void main(String[] args) {
-		final int NUM_TRIPLETS = 100;
+		final int NUM_TRIPLETS = args.length > 0 ? Integer.parseInt(args[0]) : 100;
 		final int NUM_ITEMS = 3 * NUM_TRIPLETS;
 		
 		final int NUM_INSTANCES = 100;
