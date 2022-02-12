@@ -42,35 +42,27 @@ public class BinPackingTripletExperiments {
 	
 	/**
 	 * Runs the experiments.
-	 * @param args The args[0] is the number of triplets, which defaults to 100.
+	 * @param args The args[0] is the number of triplets, which defaults to 33.
 	 */
 	public static void main(String[] args) {
-		final int NUM_TRIPLETS = args.length > 0 ? Integer.parseInt(args[0]) : 100;
+		final int NUM_TRIPLETS = args.length > 0 ? Integer.parseInt(args[0]) : 33;
 		final int NUM_ITEMS = 3 * NUM_TRIPLETS;
 		
-		final int NUM_INSTANCES = 100;
+		final int NUM_INSTANCES = 30;
 		final int POPULATION_SIZE = 100;
 		
 		final int MAX_GENERATIONS = 10000;
 		
 		ArrayList<MutationOperator<Permutation>> mutationOps = new ArrayList<MutationOperator<Permutation>>();
 		ArrayList<String> columnLabels = new ArrayList<String>(); 
-		mutationOps.add(new CycleMutation(10));
-		columnLabels.add("Cycle-10");
-		mutationOps.add(new CycleMutation(9));
-		columnLabels.add("Cycle-9");
-		mutationOps.add(new CycleMutation(8));
-		columnLabels.add("Cycle-8");
-		mutationOps.add(new CycleMutation(7));
-		columnLabels.add("Cycle-7");
 		mutationOps.add(new CycleMutation(6));
-		columnLabels.add("Cycle-6");
+		columnLabels.add("Cycle(6)");
 		mutationOps.add(new CycleMutation(5));
-		columnLabels.add("Cycle-5");
+		columnLabels.add("Cycle(5)");
 		mutationOps.add(new CycleMutation(4));
-		columnLabels.add("Cycle-4");
+		columnLabels.add("Cycle(4)");
 		mutationOps.add(new CycleMutation(3));
-		columnLabels.add("Cycle-3");
+		columnLabels.add("Cycle(3)");
 		mutationOps.add(new SwapMutation());
 		columnLabels.add("Swap");
 		mutationOps.add(new InsertionMutation());
