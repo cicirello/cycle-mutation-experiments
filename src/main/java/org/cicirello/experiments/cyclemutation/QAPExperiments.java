@@ -46,8 +46,8 @@ public class QAPExperiments {
 	 */
 	public static void main(String[] args) {
 		final int N = args.length > 0 ? Integer.parseInt(args[0]) : 100;
-		final int[] COST_RANGE = {1, 100};
-		final int[] DISTANCE_RANGE = {1, 100};
+		final int[] COST_RANGE = {1, 50};
+		final int[] DISTANCE_RANGE = {1, 50};
 		
 		final int NUM_INSTANCES = 100;
 		final int POPULATION_SIZE = 100;
@@ -55,7 +55,15 @@ public class QAPExperiments {
 		final int MAX_GENERATIONS = 10000;
 		
 		ArrayList<MutationOperator<Permutation>> mutationOps = new ArrayList<MutationOperator<Permutation>>();
-		ArrayList<String> columnLabels = new ArrayList<String>(); 
+		ArrayList<String> columnLabels = new ArrayList<String>();
+		mutationOps.add(new CycleMutation(10));
+		columnLabels.add("Cycle(10)");
+		mutationOps.add(new CycleMutation(9));
+		columnLabels.add("Cycle(9)");
+		mutationOps.add(new CycleMutation(8));
+		columnLabels.add("Cycle(8)");
+		mutationOps.add(new CycleMutation(7));
+		columnLabels.add("Cycle(7)");		
 		mutationOps.add(new CycleMutation(6));
 		columnLabels.add("Cycle(6)");
 		mutationOps.add(new CycleMutation(5));
