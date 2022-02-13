@@ -14,7 +14,11 @@ build:
 # Runs all experiments
 
 .PHONY: experiments
-experiments: binpack
+experiments: qap
+
+.PHONY: qap
+qap:
+	java -cp ${JARFILE} org.cicirello.experiments.cyclemutation.QAPExperiments 100 > ${pathToDataFiles}/qap.100.txt
 
 .PHONY: binpack
 binpack:
