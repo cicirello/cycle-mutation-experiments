@@ -33,7 +33,8 @@ import org.cicirello.search.evo.TournamentSelection;
 import org.cicirello.search.operators.permutations.PermutationInitializer;
 
 /**
- * Experiments with the Quadratic Assignment Problem.
+ * Experiments with the Quadratic Assignment Problem, generates data for tuning
+ * the tournament size for tournament selection. 
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
