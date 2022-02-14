@@ -28,8 +28,8 @@ import org.cicirello.search.operators.permutations.CycleMutation;
 import org.cicirello.search.operators.permutations.ScrambleMutation;
 import org.cicirello.search.problems.QuadraticAssignmentProblem;
 import org.cicirello.search.evo.GenerationalMutationOnlyEvolutionaryAlgorithm;
-import org.cicirello.search.evo.InverseCostFitnessFunction;
-import org.cicirello.search.evo.StochasticUniversalSampling;
+import org.cicirello.search.evo.NegativeIntegerCostFitnessFunction;
+import org.cicirello.search.evo.TruncationSelection;
 import org.cicirello.search.operators.permutations.PermutationInitializer;
 
 /**
@@ -98,14 +98,23 @@ public class QAPExperiments {
 			
 			ArrayList<GenerationalMutationOnlyEvolutionaryAlgorithm<Permutation>> evos = new ArrayList<GenerationalMutationOnlyEvolutionaryAlgorithm<Permutation>>();
 			for (MutationOperator<Permutation> mutation : mutationOps) {
+				// For cycle mutation and scramble mutation, tuning data suggests k = 1.
+				int k = 1;
+				if (mutation instanceof SwapMutation || mutation instanceof ReversalMutation) {
+					// For swap mutation and reversal mutation, tuning data suggests k = 2.
+					k = 2;
+				} else if (mutation instanceof InsertionMutation) {
+					// For insertion mutation, tuning data suggests k = 3.
+					k = 3;
+				}
 				evos.add(
 					new GenerationalMutationOnlyEvolutionaryAlgorithm<Permutation>(
 						POPULATION_SIZE,
 						mutation.split(),
 						1.0,
 						new PermutationInitializer(N),
-						new InverseCostFitnessFunction<Permutation>(problem),
-						new StochasticUniversalSampling(),
+						new NegativeIntegerCostFitnessFunction<Permutation>(problem),
+						new TruncationSelection(k),
 						1
 					)
 				);
