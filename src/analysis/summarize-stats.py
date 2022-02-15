@@ -55,6 +55,7 @@ if __name__ == "__main__" :
     datafile = sys.argv[1]
     generateGraphs = len(sys.argv) > 2 and sys.argv[2] == "graph"
     firstInstance = int(sys.argv[3]) if len(sys.argv) > 3 else 1
+    firstToGraph = int(sys.argv[4]) if len(sys.argv) > 4 else 2
     figureFilename = datafile[:-4] + ".svg"
     epsFilename = datafile[:-4] + ".eps"
     data, headings, lengths = parse(datafile, firstInstance)
@@ -90,14 +91,14 @@ if __name__ == "__main__" :
         print()
 
     if generateGraphs :
-        w = 2.98
+        w = 3.3 #2.98
         h = w
         matplotlib.pyplot.rc('font', size=8)
         matplotlib.pyplot.rc('text', usetex=True)
         fig, ax = matplotlib.pyplot.subplots(figsize=(w,h), constrained_layout=True)
         matplotlib.pyplot.xlabel('number of generations (log scale)')
         matplotlib.pyplot.ylabel('average solution cost')
-        for i in range(2, len(headings)) :
+        for i in range(firstToGraph, len(headings)) :
             line, = ax.plot(lengths,
                             means[headings[i]],
                             #styles[i],
