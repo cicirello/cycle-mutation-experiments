@@ -18,6 +18,7 @@
 import sys
 import statistics
 import matplotlib.pyplot
+import scipy.stats
 
 def parse(filename, first = 1) :
     """Computes average costs for each number of generations
@@ -56,16 +57,19 @@ if __name__ == "__main__" :
     generateGraphs = len(sys.argv) > 2 and sys.argv[2] == "graph"
     firstInstance = int(sys.argv[3]) if len(sys.argv) > 3 else 1
     firstToGraph = int(sys.argv[4]) if len(sys.argv) > 4 else 2
+    baseline = "Swap"
     figureFilename = datafile[:-4] + ".svg"
     epsFilename = datafile[:-4] + ".eps"
     data, headings, lengths = parse(datafile, firstInstance)
     means = { headings[i] : [] for i in range(2, len(headings)) }
     devs = { headings[i] : [] for i in range(2, len(headings)) }
+    pValues = { headings[i] : [] for i in range(2, len(headings)) }
     for gens in lengths :
         for i in range(2, len(headings)) :
             head = headings[i]
             means[head].append(statistics.mean(data[(gens, head)]))
             devs[head].append(statistics.stdev(data[(gens, head)]))
+            pValues[head].append(scipy.stats.ranksums(data[(gens, head)], data[(gens, baseline)]).pvalue)
     print("MEANS")
     print(headings[1], end="")
     for i in range(2, len(headings)) :
@@ -88,6 +92,18 @@ if __name__ == "__main__" :
         for j in range(2, len(headings)) :
             head = headings[j]
             print("\t{0:.2f}".format(devs[head][i]), end="")
+        print()
+    print()
+    print("Wilcoxon ranksum P-val for column compared to", baseline)
+    print(headings[1], end="")
+    for i in range(2, len(headings)) :
+        print("\t" + headings[i], end="")
+    print()
+    for i, gens in enumerate(lengths) :
+        print(gens, end="")
+        for j in range(2, len(headings)) :
+            head = headings[j]
+            print("\t{0:.4f}".format(pValues[head][i]), end="")
         print()
 
     if generateGraphs :
