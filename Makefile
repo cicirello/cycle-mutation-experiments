@@ -18,6 +18,7 @@ build:
 analysis:
 	$(py) -m pip install --user pycairo
 	$(py) -m pip install --user matplotlib
+	$(py) -m pip install --user scipy
 	$(py) src/analysis/summarize-stats.py ${pathToDataFiles}/qap.100.txt graph 1 4 > ${pathToDataFiles}/summary.qap.100.txt
 
 # Runs all experiments
