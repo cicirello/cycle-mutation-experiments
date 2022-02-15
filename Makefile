@@ -10,6 +10,15 @@ pathToDataFiles = "data"
 .PHONY: build
 build:
 	mvn clean package
+	
+
+# Summarizes the experimental data, such as statistics, graphs, etc
+
+.PHONY: analysis
+analysis:
+	$(py) -m pip install --user pycairo
+	$(py) -m pip install --user matplotlib
+	$(py) src/analysis/summarize-stats.py ${pathToDataFiles}/qap.100.txt graph 1 4 > ${pathToDataFiles}/summary.qap.100.txt
 
 # Runs all experiments
 
@@ -19,9 +28,6 @@ experiments: qap
 .PHONY: qap
 qap:
 	java -cp ${JARFILE} org.cicirello.experiments.cyclemutation.QAPExperiments 100 > ${pathToDataFiles}/qap.100.txt
-	$(py) -m pip install --user pycairo
-	$(py) -m pip install --user matplotlib
-	$(py) src/analysis/summarize-stats.py ${pathToDataFiles}/qap.100.txt graph > ${pathToDataFiles}/summary.qap.100.txt
 
 .PHONY: binpack
 binpack:
