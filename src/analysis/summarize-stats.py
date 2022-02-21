@@ -60,6 +60,7 @@ if __name__ == "__main__" :
     baseline = "Swap"
     figureFilename = datafile[:-4] + ".svg"
     epsFilename = datafile[:-4] + ".eps"
+    xLabel = 'number of {0} (log scale)'.format("generations" if datafile.find("SA") < 0 else "evaluations")
     data, headings, lengths = parse(datafile, firstInstance)
     means = { headings[i] : [] for i in range(2, len(headings)) }
     devs = { headings[i] : [] for i in range(2, len(headings)) }
@@ -112,7 +113,7 @@ if __name__ == "__main__" :
         matplotlib.pyplot.rc('font', size=8)
         matplotlib.pyplot.rc('text', usetex=True)
         fig, ax = matplotlib.pyplot.subplots(figsize=(w,h), constrained_layout=True)
-        matplotlib.pyplot.xlabel('number of generations (log scale)')
+        matplotlib.pyplot.xlabel(xLabel)
         matplotlib.pyplot.ylabel('average solution cost')
         for i in range(firstToGraph, len(headings)) :
             line, = ax.plot(lengths,
