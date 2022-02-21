@@ -20,6 +20,7 @@ analysis:
 	$(py) -m pip install --user matplotlib
 	$(py) -m pip install --user scipy
 	$(py) src/analysis/summarize-stats.py ${pathToDataFiles}/qap.100.txt graph 1 4 > ${pathToDataFiles}/summary.qap.100.txt
+	$(py) src/analysis/summarize-stats.py ${pathToDataFiles}/qap.SA100.txt graph 1 2 > ${pathToDataFiles}/summary.qap.SA100.txt
 
 # Runs all experiments
 
@@ -29,6 +30,7 @@ experiments: qap
 .PHONY: qap
 qap:
 	java -cp ${JARFILE} org.cicirello.experiments.cyclemutation.QAPExperiments 100 > ${pathToDataFiles}/qap.100.txt
+	java -cp ${JARFILE} org.cicirello.experiments.cyclemutation.QAPExperimentsSA 100 > ${pathToDataFiles}/qap.SA100.txt
 
 .PHONY: binpack
 binpack:
@@ -86,5 +88,4 @@ tuningdata:
 	
 .PHONY: more
 more:
-	java -cp ${JARFILE} org.cicirello.experiments.cyclemutation.QAPExperimentsSA 100 > ${pathToDataFiles}/qap.SA100.txt
-	$(py) src/analysis/summarize-stats.py ${pathToDataFiles}/qap.SA100.txt graph 1 2 > ${pathToDataFiles}/summary.qap.SA100.txt
+	
