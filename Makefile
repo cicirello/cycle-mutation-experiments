@@ -117,4 +117,5 @@ tuningdata:
 	
 .PHONY: more
 more:
-	
+	java -cp ${JARFILE} org.cicirello.experiments.cyclemutation.LCSExperiments 100 > ${pathToDataFiles}/lcs.100.txt
+	$(py) src/analysis/summarize-stats.py ${pathToDataFiles}/lcs.100.txt graph 1 2 > ${pathToDataFiles}/summary.lcs.100.txt
