@@ -57,30 +57,47 @@ public class LCSExperiments {
 		
 		ArrayList<MutationOperator<Permutation>> mutationOps = new ArrayList<MutationOperator<Permutation>>();
 		ArrayList<String> columnLabels = new ArrayList<String>();
-		mutationOps.add(new CycleMutation(10));
-		columnLabels.add("Cycle(10)");
-		mutationOps.add(new CycleMutation(9));
-		columnLabels.add("Cycle(9)");
+		ArrayList<Integer> truncationK = new ArrayList<Integer>();
+		
 		mutationOps.add(new CycleMutation(8));
 		columnLabels.add("Cycle(8)");
+		truncationK.add(1);
+		
 		mutationOps.add(new CycleMutation(7));
-		columnLabels.add("Cycle(7)");		
+		columnLabels.add("Cycle(7)");	
+		truncationK.add(1);		
+		
 		mutationOps.add(new CycleMutation(6));
 		columnLabels.add("Cycle(6)");
+		truncationK.add(1);
+		
 		mutationOps.add(new CycleMutation(5));
 		columnLabels.add("Cycle(5)");
+		truncationK.add(1);
+		
 		mutationOps.add(new CycleMutation(4));
 		columnLabels.add("Cycle(4)");
+		truncationK.add(1);
+		
 		mutationOps.add(new CycleMutation(3));
 		columnLabels.add("Cycle(3)");
+		truncationK.add(2);
+		
 		mutationOps.add(new SwapMutation());
 		columnLabels.add("Swap");
+		truncationK.add(2);
+		
 		mutationOps.add(new InsertionMutation());
 		columnLabels.add("Insertion");
+		truncationK.add(2);
+		
 		mutationOps.add(new ReversalMutation());
 		columnLabels.add("Reversal");
+		truncationK.add(2);
+		
 		mutationOps.add(new ScrambleMutation());
 		columnLabels.add("Scramble");
+		truncationK.add(1);
 		
 		System.out.print("Instance\tGenerations");
 		for (String label : columnLabels) {
@@ -96,16 +113,12 @@ public class LCSExperiments {
 			);
 			
 			ArrayList<GenerationalMutationOnlyEvolutionaryAlgorithm<Permutation>> evos = new ArrayList<GenerationalMutationOnlyEvolutionaryAlgorithm<Permutation>>();
+			
+			int opID = 0;
 			for (MutationOperator<Permutation> mutation : mutationOps) {
-				// For cycle mutation and scramble mutation, tuning data suggests k = 1.
-				int k = 1;
-				if (mutation instanceof SwapMutation || mutation instanceof ReversalMutation) {
-					// For swap mutation and reversal mutation, tuning data suggests k = 2.
-					k = 2;
-				} else if (mutation instanceof InsertionMutation) {
-					// For insertion mutation, tuning data suggests k = 3.
-					k = 3;
-				}
+				
+				int k = truncationK.get(opID);
+				
 				evos.add(
 					new GenerationalMutationOnlyEvolutionaryAlgorithm<Permutation>(
 						POPULATION_SIZE,
@@ -117,6 +130,8 @@ public class LCSExperiments {
 						1
 					)
 				);
+				
+				opID++;
 			}
 			
 			int totalGenerations = 1;
