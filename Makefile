@@ -21,11 +21,17 @@ analysis:
 	$(py) -m pip install --user scipy
 	$(py) src/analysis/summarize-stats.py ${pathToDataFiles}/qap.100.txt graph 1 4 > ${pathToDataFiles}/summary.qap.100.txt
 	$(py) src/analysis/summarize-stats.py ${pathToDataFiles}/qap.SA100.txt graph 1 2 > ${pathToDataFiles}/summary.qap.SA100.txt
+	$(py) src/analysis/summarize-stats.py ${pathToDataFiles}/lcs.SA100.txt graph 1 2 > ${pathToDataFiles}/summary.lcs.SA100.txt
 
 # Runs all experiments
 
 .PHONY: experiments
-experiments: qap
+experiments: qap lcs
+
+.PHONY: lcs
+lcs:
+	java -cp ${JARFILE} org.cicirello.experiments.cyclemutation.LCSExperimentsSA 100 > ${pathToDataFiles}/lcs.SA100.txt
+	
 
 .PHONY: qap
 qap:
@@ -39,6 +45,23 @@ binpack:
 	java -cp ${JARFILE} org.cicirello.experiments.cyclemutation.BinPackingTripletExperiments 100 > ${pathToDataFiles}/bin.triplet.300.txt
 
 # Tune tournament size for tournament selection and truncation threshold for truncation selection
+
+.PHONY: tunelcs
+tunelcs:
+	java -cp ${JARFILE} org.cicirello.experiments.cyclemutation.LCSExperimentsTuningOnlyTruncation 100 1 > ${pathToDataFiles}/tuninglcs.T1.txt
+	java -cp ${JARFILE} org.cicirello.experiments.cyclemutation.LCSExperimentsTuningOnlyTruncation 100 2 > ${pathToDataFiles}/tuninglcs.T2.txt
+	java -cp ${JARFILE} org.cicirello.experiments.cyclemutation.LCSExperimentsTuningOnlyTruncation 100 3 > ${pathToDataFiles}/tuninglcs.T3.txt
+	java -cp ${JARFILE} org.cicirello.experiments.cyclemutation.LCSExperimentsTuningOnlyTruncation 100 4 > ${pathToDataFiles}/tuninglcs.T4.txt
+	java -cp ${JARFILE} org.cicirello.experiments.cyclemutation.LCSExperimentsTuningOnlyTruncation 100 5 > ${pathToDataFiles}/tuninglcs.T5.txt
+	java -cp ${JARFILE} org.cicirello.experiments.cyclemutation.LCSExperimentsTuningOnlyTruncation 100 10 > ${pathToDataFiles}/tuninglcs.T10.txt
+	java -cp ${JARFILE} org.cicirello.experiments.cyclemutation.LCSExperimentsTuningOnlyTruncation 100 20 > ${pathToDataFiles}/tuninglcs.T20.txt
+	$(py) src/analysis/summarize-stats.py ${pathToDataFiles}/tuninglcs.T1.txt no 1000 > ${pathToDataFiles}/summary.tuninglcs.T1.txt
+	$(py) src/analysis/summarize-stats.py ${pathToDataFiles}/tuninglcs.T2.txt no 1000 > ${pathToDataFiles}/summary.tuninglcs.T2.txt
+	$(py) src/analysis/summarize-stats.py ${pathToDataFiles}/tuninglcs.T3.txt no 1000 > ${pathToDataFiles}/summary.tuninglcs.T3.txt
+	$(py) src/analysis/summarize-stats.py ${pathToDataFiles}/tuninglcs.T4.txt no 1000 > ${pathToDataFiles}/summary.tuninglcs.T4.txt
+	$(py) src/analysis/summarize-stats.py ${pathToDataFiles}/tuninglcs.T5.txt no 1000 > ${pathToDataFiles}/summary.tuninglcs.T5.txt
+	$(py) src/analysis/summarize-stats.py ${pathToDataFiles}/tuninglcs.T10.txt no 1000 > ${pathToDataFiles}/summary.tuninglcs.T10.txt
+	$(py) src/analysis/summarize-stats.py ${pathToDataFiles}/tuninglcs.T20.txt no 1000 > ${pathToDataFiles}/summary.tuninglcs.T20.txt
 
 .PHONY: tuneqap
 tuneqap:
@@ -88,5 +111,4 @@ tuningdata:
 	
 .PHONY: more
 more:
-	java -cp ${JARFILE} org.cicirello.experiments.cyclemutation.LCSExperimentsSA 100 > ${pathToDataFiles}/lcs.SA100.txt
-	$(py) src/analysis/summarize-stats.py ${pathToDataFiles}/lcs.SA100.txt graph 1 2 > ${pathToDataFiles}/summary.lcs.SA100.txt
+	
