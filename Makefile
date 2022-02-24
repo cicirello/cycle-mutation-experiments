@@ -111,4 +111,10 @@ tuningdata:
 	
 .PHONY: more
 more:
+	java -cp ${JARFILE} org.cicirello.experiments.cyclemutation.LCSExperimentsTuningOnlyTruncation 100 6 > ${pathToDataFiles}/tuninglcs.T6.txt
+	java -cp ${JARFILE} org.cicirello.experiments.cyclemutation.LCSExperimentsTuningOnlyTruncation 100 7 > ${pathToDataFiles}/tuninglcs.T7.txt
+	java -cp ${JARFILE} org.cicirello.experiments.cyclemutation.LCSExperimentsTuningOnlyTruncation 100 8 > ${pathToDataFiles}/tuninglcs.T8.txt
+	$(py) src/analysis/summarize-stats.py ${pathToDataFiles}/tuninglcs.T6.txt no 1000 > ${pathToDataFiles}/summary.tuninglcs.T6.txt
+	$(py) src/analysis/summarize-stats.py ${pathToDataFiles}/tuninglcs.T7.txt no 1000 > ${pathToDataFiles}/summary.tuninglcs.T7.txt
+	$(py) src/analysis/summarize-stats.py ${pathToDataFiles}/tuninglcs.T8.txt no 1000 > ${pathToDataFiles}/summary.tuninglcs.T8.txt
 	
