@@ -22,6 +22,7 @@ analysis:
 	$(py) src/analysis/summarize-stats.py ${pathToDataFiles}/qap.100.txt graph 1 4 > ${pathToDataFiles}/summary.qap.100.txt
 	$(py) src/analysis/summarize-stats.py ${pathToDataFiles}/qap.SA100.txt graph 1 2 > ${pathToDataFiles}/summary.qap.SA100.txt
 	$(py) src/analysis/summarize-stats.py ${pathToDataFiles}/lcs.100.txt graph 1 2 > ${pathToDataFiles}/summary.lcs.100.txt
+	$(py) src/analysis/summarize-stats.py ${pathToDataFiles}/lcs.SUS100.txt graph 1 2 > ${pathToDataFiles}/summary.lcs.SUS100.txt
 	$(py) src/analysis/summarize-stats.py ${pathToDataFiles}/lcs.SA100.txt graph 1 2 > ${pathToDataFiles}/summary.lcs.SA100.txt
 
 # Runs all experiments
@@ -33,6 +34,7 @@ experiments: qap lcs
 lcs:
 	java -cp ${JARFILE} org.cicirello.experiments.cyclemutation.LCSExperimentsSA 100 > ${pathToDataFiles}/lcs.SA100.txt
 	java -cp ${JARFILE} org.cicirello.experiments.cyclemutation.LCSExperiments 100 > ${pathToDataFiles}/lcs.100.txt
+	java -cp ${JARFILE} org.cicirello.experiments.cyclemutation.LCSExperimentsSUS 100 > ${pathToDataFiles}/lcs.SUS100.txt
 
 .PHONY: qap
 qap:
@@ -118,5 +120,5 @@ tuningdata:
 	
 .PHONY: more
 more:
-	java -cp ${JARFILE} org.cicirello.experiments.cyclemutation.LCSExperimentsSUS 100 > ${pathToDataFiles}/lcs.SUS100.txt
-	$(py) src/analysis/summarize-stats.py ${pathToDataFiles}/lcs.SUS100.txt graph 1 2 > ${pathToDataFiles}/summary.lcs.SUS100.txt
+	java -cp ${JARFILE} org.cicirello.experiments.cyclemutation.LCSExperimentsVersionTwoSA 100 > ${pathToDataFiles}/lcs.SA100v2.txt
+	$(py) src/analysis/summarize-stats.py ${pathToDataFiles}/lcs.SA100v2.txt no 1 2 > ${pathToDataFiles}/summary.lcs.SA100v2.txt
