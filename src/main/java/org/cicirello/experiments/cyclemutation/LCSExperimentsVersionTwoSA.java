@@ -56,14 +56,20 @@ public class LCSExperimentsVersionTwoSA {
 		ArrayList<UndoableMutationOperator<Permutation>> mutationOps = new ArrayList<UndoableMutationOperator<Permutation>>();
 		ArrayList<String> columnLabels = new ArrayList<String>();
 		
-		mutationOps.add(new CycleMutationExperimental(0.75));
-		columnLabels.add("Cycle(0.75)");
-		
 		mutationOps.add(new CycleMutationExperimental(0.5));
-		columnLabels.add("Cycle(0.50)");
+		columnLabels.add("Cycle(0.5)");
 		
-		mutationOps.add(new CycleMutationExperimental(0.25));
-		columnLabels.add("Cycle(0.25)");
+		mutationOps.add(new CycleMutationExperimental(0.4));
+		columnLabels.add("Cycle(0.4)");
+		
+		mutationOps.add(new CycleMutationExperimental(0.3));
+		columnLabels.add("Cycle(0.3)");
+		
+		mutationOps.add(new CycleMutationExperimental(0.2));
+		columnLabels.add("Cycle(0.2)");
+		
+		mutationOps.add(new CycleMutationExperimental(0.1));
+		columnLabels.add("Cycle(0.1)");
 		
 		System.out.print("Instance\tEvaluations");
 		for (String label : columnLabels) {
