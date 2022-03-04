@@ -24,6 +24,7 @@ analysis:
 	$(py) src/analysis/summarize-stats.py ${pathToDataFiles}/lcs.100.txt graph 1 2 > ${pathToDataFiles}/summary.lcs.100.txt
 	$(py) src/analysis/summarize-stats.py ${pathToDataFiles}/lcs.SUS100.txt graph 1 2 > ${pathToDataFiles}/summary.lcs.SUS100.txt
 	$(py) src/analysis/summarize-stats.py ${pathToDataFiles}/lcs.SA100.txt graph 1 2 > ${pathToDataFiles}/summary.lcs.SA100.txt
+	$(py) src/analysis/summarize-stats-v2.py ${pathToDataFiles}/lcs.SA100v2.txt graph 1 2 ${pathToDataFiles}/lcs.SA100.txt 8 > ${pathToDataFiles}/summary.lcs.SA100v2.txt
 
 # Runs all experiments
 
@@ -35,6 +36,8 @@ lcs:
 	java -cp ${JARFILE} org.cicirello.experiments.cyclemutation.LCSExperimentsSA 100 > ${pathToDataFiles}/lcs.SA100.txt
 	java -cp ${JARFILE} org.cicirello.experiments.cyclemutation.LCSExperiments 100 > ${pathToDataFiles}/lcs.100.txt
 	java -cp ${JARFILE} org.cicirello.experiments.cyclemutation.LCSExperimentsSUS 100 > ${pathToDataFiles}/lcs.SUS100.txt
+	java -cp ${JARFILE} org.cicirello.experiments.cyclemutation.LCSExperimentsVersionTwoSA 100 > ${pathToDataFiles}/lcs.SA100v2.txt
+	
 
 .PHONY: qap
 qap:
@@ -120,5 +123,17 @@ tuningdata:
 	
 .PHONY: more
 more:
-	java -cp ${JARFILE} org.cicirello.experiments.cyclemutation.LCSExperimentsVersionTwoSA 100 > ${pathToDataFiles}/lcs.SA100v2.txt
-	$(py) src/analysis/summarize-stats.py ${pathToDataFiles}/lcs.SA100v2.txt no 1 2 > ${pathToDataFiles}/summary.lcs.SA100v2.txt
+	java -cp ${JARFILE} org.cicirello.experiments.cyclemutation.LCSExperimentsTuningV2 100 1 > ${pathToDataFiles}/tuninglcs-V2.T1.txt
+	$(py) src/analysis/summarize-stats.py ${pathToDataFiles}/tuninglcs-V2.T1.txt no 1000 > ${pathToDataFiles}/summary.tuninglcs-V2.T1.txt
+	java -cp ${JARFILE} org.cicirello.experiments.cyclemutation.LCSExperimentsTuningV2 100 2 > ${pathToDataFiles}/tuninglcs-V2.T2.txt
+	$(py) src/analysis/summarize-stats.py ${pathToDataFiles}/tuninglcs-V2.T2.txt no 1000 > ${pathToDataFiles}/summary.tuninglcs-V2.T2.txt
+	java -cp ${JARFILE} org.cicirello.experiments.cyclemutation.LCSExperimentsTuningV2 100 3 > ${pathToDataFiles}/tuninglcs-V2.T3.txt
+	$(py) src/analysis/summarize-stats.py ${pathToDataFiles}/tuninglcs-V2.T3.txt no 1000 > ${pathToDataFiles}/summary.tuninglcs-V2.T3.txt
+	java -cp ${JARFILE} org.cicirello.experiments.cyclemutation.LCSExperimentsTuningV2 100 4 > ${pathToDataFiles}/tuninglcs-V2.T4.txt
+	$(py) src/analysis/summarize-stats.py ${pathToDataFiles}/tuninglcs-V2.T4.txt no 1000 > ${pathToDataFiles}/summary.tuninglcs-V2.T4.txt
+	java -cp ${JARFILE} org.cicirello.experiments.cyclemutation.LCSExperimentsTuningV2 100 5 > ${pathToDataFiles}/tuninglcs-V2.T5.txt
+	$(py) src/analysis/summarize-stats.py ${pathToDataFiles}/tuninglcs-V2.T5.txt no 1000 > ${pathToDataFiles}/summary.tuninglcs-V2.T5.txt
+	java -cp ${JARFILE} org.cicirello.experiments.cyclemutation.LCSExperimentsTuningV2 100 10 > ${pathToDataFiles}/tuninglcs-V2.T10.txt
+	$(py) src/analysis/summarize-stats.py ${pathToDataFiles}/tuninglcs-V2.T10.txt no 1000 > ${pathToDataFiles}/summary.tuninglcs-V2.T10.txt
+	java -cp ${JARFILE} org.cicirello.experiments.cyclemutation.LCSExperimentsTuningV2 100 20 > ${pathToDataFiles}/tuninglcs-V2.T20.txt
+	$(py) src/analysis/summarize-stats.py ${pathToDataFiles}/tuninglcs-V2.T20.txt no 1000 > ${pathToDataFiles}/summary.tuninglcs-V2.T20.txt
