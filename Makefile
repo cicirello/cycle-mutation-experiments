@@ -21,6 +21,7 @@ analysis:
 	$(py) -m pip install --user scipy
 	$(py) src/analysis/summarize-stats.py ${pathToDataFiles}/qap.100.txt graph 1 4 > ${pathToDataFiles}/summary.qap.100.txt
 	$(py) src/analysis/summarize-stats.py ${pathToDataFiles}/qap.SA100.txt graph 1 2 > ${pathToDataFiles}/summary.qap.SA100.txt
+	$(py) src/analysis/summarize-stats-v2.py ${pathToDataFiles}/qap.SA100v2.txt graph 1 2 ${pathToDataFiles}/qap.SA100.txt 8 > ${pathToDataFiles}/summary.qap.SA100v2.txt
 	$(py) src/analysis/summarize-stats.py ${pathToDataFiles}/lcs.100.txt graph 1 2 > ${pathToDataFiles}/summary.lcs.100.txt
 	$(py) src/analysis/summarize-stats.py ${pathToDataFiles}/lcs.SUS100.txt graph 1 2 > ${pathToDataFiles}/summary.lcs.SUS100.txt
 	$(py) src/analysis/summarize-stats.py ${pathToDataFiles}/lcs.SA100.txt graph 1 2 > ${pathToDataFiles}/summary.lcs.SA100.txt
@@ -44,6 +45,7 @@ lcs:
 qap:
 	java -cp ${JARFILE} org.cicirello.experiments.cyclemutation.QAPExperiments 100 > ${pathToDataFiles}/qap.100.txt
 	java -cp ${JARFILE} org.cicirello.experiments.cyclemutation.QAPExperimentsSA 100 > ${pathToDataFiles}/qap.SA100.txt
+	java -cp ${JARFILE} org.cicirello.experiments.cyclemutation.QAPExperimentsVersionTwoSA 100 > ${pathToDataFiles}/qap.SA100v2.txt
 
 .PHONY: binpack
 binpack:
@@ -138,6 +140,5 @@ tuningdata:
 	
 .PHONY: more
 more:
-	java -cp ${JARFILE} org.cicirello.experiments.cyclemutation.QAPExperimentsVersionTwoSA 100 > ${pathToDataFiles}/qap.SA100v2.txt
-	$(py) src/analysis/summarize-stats-v2.py ${pathToDataFiles}/qap.SA100v2.txt graph 1 2 ${pathToDataFiles}/qap.SA100.txt 8 > ${pathToDataFiles}/summary.qap.SA100v2.txt
-	
+	java -cp ${JARFILE} org.cicirello.experiments.cyclemutation.LCSExperimentsSA 50 > ${pathToDataFiles}/lcs.SA50.txt
+	$(py) src/analysis/summarize-stats.py ${pathToDataFiles}/lcs.SA50.txt graph 1 2 > ${pathToDataFiles}/summary.lcs.SA50.txt
