@@ -50,54 +50,39 @@ public class LCSExperiments {
 		// Density of the graphs.
 		final double DENSITY = 0.5;
 		
-		final int NUM_INSTANCES = 100;
-		final int POPULATION_SIZE = 100;
+		final int NUM_INSTANCES = 50;
 		
-		final int MAX_GENERATIONS = 10000;
+		final int POPULATION_SIZE = 50;
+		
+		// truncation selection parameter
+		final int K = 5;
+		
+		final int MIN_GENERATIONS = 2;
+		final int MAX_GENERATIONS = 200000;
 		
 		ArrayList<MutationOperator<Permutation>> mutationOps = new ArrayList<MutationOperator<Permutation>>();
 		ArrayList<String> columnLabels = new ArrayList<String>();
-		ArrayList<Integer> truncationK = new ArrayList<Integer>();
 		
-		mutationOps.add(new CycleMutation(8));
-		columnLabels.add("Cycle(8)");
-		truncationK.add(1);
-		
-		mutationOps.add(new CycleMutation(7));
-		columnLabels.add("Cycle(7)");	
-		truncationK.add(1);		
-		
-		mutationOps.add(new CycleMutation(6));
-		columnLabels.add("Cycle(6)");
-		truncationK.add(1);
-		
-		mutationOps.add(new CycleMutation(5));
-		columnLabels.add("Cycle(5)");
-		truncationK.add(1);
+		mutationOps.add(new CycleMutationExperimental(0.5));
+		columnLabels.add("Cycle(0.5)");
 		
 		mutationOps.add(new CycleMutation(4));
 		columnLabels.add("Cycle(4)");
-		truncationK.add(1);
 		
 		mutationOps.add(new CycleMutation(3));
 		columnLabels.add("Cycle(3)");
-		truncationK.add(2);
 		
 		mutationOps.add(new SwapMutation());
 		columnLabels.add("Swap");
-		truncationK.add(2);
 		
 		mutationOps.add(new InsertionMutation());
 		columnLabels.add("Insertion");
-		truncationK.add(2);
 		
 		mutationOps.add(new ReversalMutation());
 		columnLabels.add("Reversal");
-		truncationK.add(2);
 		
 		mutationOps.add(new ScrambleMutation());
 		columnLabels.add("Scramble");
-		truncationK.add(1);
 		
 		System.out.print("Instance\tGenerations");
 		for (String label : columnLabels) {
@@ -117,8 +102,6 @@ public class LCSExperiments {
 			int opID = 0;
 			for (MutationOperator<Permutation> mutation : mutationOps) {
 				
-				int k = truncationK.get(opID);
-				
 				evos.add(
 					new GenerationalMutationOnlyEvolutionaryAlgorithm<Permutation>(
 						POPULATION_SIZE,
@@ -126,15 +109,14 @@ public class LCSExperiments {
 						1.0,
 						new PermutationInitializer(N),
 						new NegativeIntegerCostFitnessFunction<Permutation>(problem),
-						new TruncationSelection(k),
-						1
+						new TruncationSelection(K)
 					)
 				);
 				
 				opID++;
 			}
 			
-			int totalGenerations = 1;
+			int totalGenerations = MIN_GENERATIONS;
 			System.out.print(seed + "\t" + totalGenerations);
 			for (GenerationalMutationOnlyEvolutionaryAlgorithm<Permutation> ea : evos) {
 				ea.optimize(totalGenerations);
