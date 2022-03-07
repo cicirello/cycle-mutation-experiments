@@ -52,13 +52,20 @@ public class LCSExperiments {
 		
 		final int NUM_INSTANCES = 50;
 		
-		final int POPULATION_SIZE = 50;
+		// Chips-n-Salsa doesn't currently have a (mu + lambda)-EA.
+		// and thus no (1+1)-EA. However, we can get the equivalent
+		// with population size of 2, elitism of 1 (keeping the best unaltered),
+		// and truncation selection with k=1. Thus creating exactly one mutant of
+		// best each generation, which becomes the elite is better or otherwise will
+		// be replaced during next iteration.
+		
+		final int POPULATION_SIZE = 2;
 		
 		// truncation selection parameter
-		final int K = 5;
+		final int K = 1;
 		
-		final int MIN_GENERATIONS = 2;
-		final int MAX_GENERATIONS = 200000;
+		final int MIN_GENERATIONS = 100;
+		final int MAX_GENERATIONS = 10000000;
 		
 		ArrayList<MutationOperator<Permutation>> mutationOps = new ArrayList<MutationOperator<Permutation>>();
 		ArrayList<String> columnLabels = new ArrayList<String>();
@@ -109,7 +116,8 @@ public class LCSExperiments {
 						1.0,
 						new PermutationInitializer(N),
 						new NegativeIntegerCostFitnessFunction<Permutation>(problem),
-						new TruncationSelection(K)
+						new TruncationSelection(K),
+						1
 					)
 				);
 				
