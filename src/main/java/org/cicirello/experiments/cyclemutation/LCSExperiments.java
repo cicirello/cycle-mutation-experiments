@@ -76,6 +76,9 @@ public class LCSExperiments {
 		mutationOps.add(new CycleMutationExperimental(0.5));
 		columnLabels.add("Cycle(0.5)");
 		
+		mutationOps.add(new CycleMutationExperimental(0.25));
+		columnLabels.add("Cycle(0.25)");
+		
 		mutationOps.add(new CycleMutation(5));
 		columnLabels.add("Cycle(5)");
 		
