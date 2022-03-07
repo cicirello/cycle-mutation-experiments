@@ -50,25 +50,17 @@ public class LCSExperimentsSUS {
 		// Density of the graphs.
 		final double DENSITY = 0.5;
 		
-		final int NUM_INSTANCES = 100;
-		final int POPULATION_SIZE = 100;
+		final int NUM_INSTANCES = 50;
 		
-		final int MAX_GENERATIONS = 10000;
+		final int POPULATION_SIZE = 51; // Using elitism=1, so 51 leads to 50 evaluations in a generation
+		final int MIN_GENERATIONS = 2;
+		final int MAX_GENERATIONS = 200000;
 		
 		ArrayList<MutationOperator<Permutation>> mutationOps = new ArrayList<MutationOperator<Permutation>>();
 		ArrayList<String> columnLabels = new ArrayList<String>();
 		
-		mutationOps.add(new CycleMutation(8));
-		columnLabels.add("Cycle(8)");
-		
-		mutationOps.add(new CycleMutation(7));
-		columnLabels.add("Cycle(7)");	
-		
-		mutationOps.add(new CycleMutation(6));
-		columnLabels.add("Cycle(6)");
-		
-		mutationOps.add(new CycleMutation(5));
-		columnLabels.add("Cycle(5)");
+		mutationOps.add(new CycleMutationExperimental(0.5));
+		columnLabels.add("Cycle(0.5)");
 		
 		mutationOps.add(new CycleMutation(4));
 		columnLabels.add("Cycle(4)");
@@ -121,7 +113,7 @@ public class LCSExperimentsSUS {
 				opID++;
 			}
 			
-			int totalGenerations = 1;
+			int totalGenerations = MIN_GENERATIONS;
 			System.out.print(seed + "\t" + totalGenerations);
 			for (GenerationalMutationOnlyEvolutionaryAlgorithm<Permutation> ea : evos) {
 				ea.optimize(totalGenerations);
