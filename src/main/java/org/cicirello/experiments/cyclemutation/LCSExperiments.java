@@ -100,11 +100,13 @@ public class LCSExperiments {
 		mutationOps.add(new ScrambleMutation());
 		columnLabels.add("Scramble");
 		
+		
 		System.out.print("Instance\tGenerations");
 		for (String label : columnLabels) {
 			System.out.print("\t" + label);
 		}
 		System.out.println();
+		
 		for (int seed = 1; seed <= NUM_INSTANCES; seed++) {
 			LargestCommonSubgraph problem = new LargestCommonSubgraph(
 				N, 
