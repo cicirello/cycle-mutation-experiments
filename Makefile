@@ -20,6 +20,7 @@ analysis:
 	$(py) -m pip install --user matplotlib
 	$(py) -m pip install --user scipy
 	$(py) src/analysis/summarize-stats.py ${pathToDataFiles}/lcs.SA50.txt graph 1 2 > ${pathToDataFiles}/summary.lcs.SA50.txt
+	$(py) src/analysis/summarize-stats.py ${pathToDataFiles}/lcs.50.txt graph 1 2 > ${pathToDataFiles}/summary.lcs.50.txt
 	#$(py) src/analysis/summarize-stats.py ${pathToDataFiles}/qap.100.txt graph 1 4 > ${pathToDataFiles}/summary.qap.100.txt
 	#$(py) src/analysis/summarize-stats.py ${pathToDataFiles}/qap.SA100.txt graph 1 2 > ${pathToDataFiles}/summary.qap.SA100.txt
 	#$(py) src/analysis/summarize-stats-v2.py ${pathToDataFiles}/qap.SA100v2.txt graph 1 2 ${pathToDataFiles}/qap.SA100.txt 8 > ${pathToDataFiles}/summary.qap.SA100v2.txt
@@ -37,11 +38,7 @@ experiments: qap lcs
 .PHONY: lcs
 lcs:
 	java -cp ${JARFILE} org.cicirello.experiments.cyclemutation.LCSExperimentsSA 50 > ${pathToDataFiles}/lcs.SA50.txt
-	#java -cp ${JARFILE} org.cicirello.experiments.cyclemutation.LCSExperimentsSA 100 > ${pathToDataFiles}/lcs.SA100.txt
-	#java -cp ${JARFILE} org.cicirello.experiments.cyclemutation.LCSExperiments 100 > ${pathToDataFiles}/lcs.100.txt
-	#java -cp ${JARFILE} org.cicirello.experiments.cyclemutation.LCSExperimentsSUS 100 > ${pathToDataFiles}/lcs.SUS100.txt
-	#java -cp ${JARFILE} org.cicirello.experiments.cyclemutation.LCSExperimentsVersionTwoSA 100 > ${pathToDataFiles}/lcs.SA100v2.txt
-	#java -cp ${JARFILE} org.cicirello.experiments.cyclemutation.LCSExperimentsVersionTwo 100 > ${pathToDataFiles}/lcs.100v2.txt
+	java -cp ${JARFILE} org.cicirello.experiments.cyclemutation.LCSExperiments 50 > ${pathToDataFiles}/lcs.50.txt
 	
 .PHONY: qap
 qap:
@@ -142,5 +139,4 @@ tuningdata:
 	
 .PHONY: more
 more:
-	java -cp ${JARFILE} org.cicirello.experiments.cyclemutation.LCSExperiments 50 > ${pathToDataFiles}/lcs.50.txt
-	$(py) src/analysis/summarize-stats.py ${pathToDataFiles}/lcs.50.txt graph 1 2 > ${pathToDataFiles}/summary.lcs.50.txt
+	
