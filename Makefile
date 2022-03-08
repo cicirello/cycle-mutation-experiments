@@ -41,12 +41,6 @@ qap:
 	java -cp ${JARFILE} org.cicirello.experiments.cyclemutation.QAPExperimentsSA 100 > ${pathToDataFiles}/qap.SA100.txt
 	java -cp ${JARFILE} org.cicirello.experiments.cyclemutation.QAPExperimentsVersionTwoSA 100 > ${pathToDataFiles}/qap.SA100v2.txt
 
-.PHONY: binpack
-binpack:
-	java -cp ${JARFILE} org.cicirello.experiments.cyclemutation.BinPackingTripletExperiments 33 > ${pathToDataFiles}/bin.triplet.99.txt
-	java -cp ${JARFILE} org.cicirello.experiments.cyclemutation.BinPackingTripletExperiments 67 > ${pathToDataFiles}/bin.triplet.201.txt
-	java -cp ${JARFILE} org.cicirello.experiments.cyclemutation.BinPackingTripletExperiments 100 > ${pathToDataFiles}/bin.triplet.300.txt
-
 # Tune tournament size for tournament selection and truncation threshold for truncation selection
 	
 .PHONY: tuneqap
