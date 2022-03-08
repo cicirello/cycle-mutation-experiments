@@ -46,38 +46,57 @@ public class QAPExperiments {
 	 */
 	public static void main(String[] args) {
 		final int N = args.length > 0 ? Integer.parseInt(args[0]) : 100;
+		
 		final int[] COST_RANGE = {1, 50};
 		final int[] DISTANCE_RANGE = {1, 50};
 		
-		final int NUM_INSTANCES = 100;
-		final int POPULATION_SIZE = 100;
+		final int NUM_INSTANCES = 50;
 		
-		final int MAX_GENERATIONS = 10000;
+		// Chips-n-Salsa doesn't currently have a (mu + lambda)-EA.
+		// and thus no (1+1)-EA. However, we can get the equivalent
+		// with population size of 2, elitism of 1 (keeping the best unaltered),
+		// and truncation selection with k=1. Thus creating exactly one mutant of
+		// best each generation, which becomes the elite is better or otherwise will
+		// be replaced during next iteration.
+		
+		final int POPULATION_SIZE = 2;
+		
+		// truncation selection parameter
+		final int K = 1;
+		
+		final int MIN_GENERATIONS = 100;
+		final int MAX_GENERATIONS = 10000000;
 		
 		ArrayList<MutationOperator<Permutation>> mutationOps = new ArrayList<MutationOperator<Permutation>>();
 		ArrayList<String> columnLabels = new ArrayList<String>();
-		mutationOps.add(new CycleMutation(10));
-		columnLabels.add("Cycle(10)");
-		mutationOps.add(new CycleMutation(9));
-		columnLabels.add("Cycle(9)");
-		mutationOps.add(new CycleMutation(8));
-		columnLabels.add("Cycle(8)");
-		mutationOps.add(new CycleMutation(7));
-		columnLabels.add("Cycle(7)");		
-		mutationOps.add(new CycleMutation(6));
-		columnLabels.add("Cycle(6)");
+		
+		mutationOps.add(new CycleMutationExperimental(0.75));
+		columnLabels.add("Cycle(0.75)");
+		
+		mutationOps.add(new CycleMutationExperimental(0.5));
+		columnLabels.add("Cycle(0.5)");
+		
+		mutationOps.add(new CycleMutationExperimental(0.25));
+		columnLabels.add("Cycle(0.25)");
+		
 		mutationOps.add(new CycleMutation(5));
 		columnLabels.add("Cycle(5)");
+		
 		mutationOps.add(new CycleMutation(4));
 		columnLabels.add("Cycle(4)");
+		
 		mutationOps.add(new CycleMutation(3));
 		columnLabels.add("Cycle(3)");
+		
 		mutationOps.add(new SwapMutation());
 		columnLabels.add("Swap");
+		
 		mutationOps.add(new InsertionMutation());
 		columnLabels.add("Insertion");
+		
 		mutationOps.add(new ReversalMutation());
 		columnLabels.add("Reversal");
+		
 		mutationOps.add(new ScrambleMutation());
 		columnLabels.add("Scramble");
 		
@@ -97,16 +116,8 @@ public class QAPExperiments {
 			);
 			
 			ArrayList<GenerationalMutationOnlyEvolutionaryAlgorithm<Permutation>> evos = new ArrayList<GenerationalMutationOnlyEvolutionaryAlgorithm<Permutation>>();
+			
 			for (MutationOperator<Permutation> mutation : mutationOps) {
-				// For cycle mutation and scramble mutation, tuning data suggests k = 1.
-				int k = 1;
-				if (mutation instanceof SwapMutation || mutation instanceof ReversalMutation) {
-					// For swap mutation and reversal mutation, tuning data suggests k = 2.
-					k = 2;
-				} else if (mutation instanceof InsertionMutation) {
-					// For insertion mutation, tuning data suggests k = 3.
-					k = 3;
-				}
 				evos.add(
 					new GenerationalMutationOnlyEvolutionaryAlgorithm<Permutation>(
 						POPULATION_SIZE,
@@ -114,13 +125,13 @@ public class QAPExperiments {
 						1.0,
 						new PermutationInitializer(N),
 						new NegativeIntegerCostFitnessFunction<Permutation>(problem),
-						new TruncationSelection(k),
+						new TruncationSelection(K),
 						1
 					)
 				);
 			}
 			
-			int totalGenerations = 1;
+			int totalGenerations = MIN_GENERATIONS;
 			System.out.print(seed + "\t" + totalGenerations);
 			for (GenerationalMutationOnlyEvolutionaryAlgorithm<Permutation> ea : evos) {
 				ea.optimize(totalGenerations);
