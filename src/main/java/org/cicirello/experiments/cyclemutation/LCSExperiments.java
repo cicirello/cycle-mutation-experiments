@@ -117,9 +117,7 @@ public class LCSExperiments {
 			
 			ArrayList<GenerationalMutationOnlyEvolutionaryAlgorithm<Permutation>> evos = new ArrayList<GenerationalMutationOnlyEvolutionaryAlgorithm<Permutation>>();
 			
-			int opID = 0;
 			for (MutationOperator<Permutation> mutation : mutationOps) {
-				
 				evos.add(
 					new GenerationalMutationOnlyEvolutionaryAlgorithm<Permutation>(
 						POPULATION_SIZE,
@@ -131,8 +129,6 @@ public class LCSExperiments {
 						1
 					)
 				);
-				
-				opID++;
 			}
 			
 			int totalGenerations = MIN_GENERATIONS;
