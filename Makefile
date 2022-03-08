@@ -37,9 +37,9 @@ lcs:
 	
 .PHONY: qap
 qap:
-	java -cp ${JARFILE} org.cicirello.experiments.cyclemutation.QAPExperiments 100 > ${pathToDataFiles}/qap.100.txt
-	java -cp ${JARFILE} org.cicirello.experiments.cyclemutation.QAPExperimentsSA 100 > ${pathToDataFiles}/qap.SA100.txt
-	java -cp ${JARFILE} org.cicirello.experiments.cyclemutation.QAPExperimentsVersionTwoSA 100 > ${pathToDataFiles}/qap.SA100v2.txt
+	#java -cp ${JARFILE} org.cicirello.experiments.cyclemutation.QAPExperiments 100 > ${pathToDataFiles}/qap.100.txt
+	#java -cp ${JARFILE} org.cicirello.experiments.cyclemutation.QAPExperimentsSA 100 > ${pathToDataFiles}/qap.SA100.txt
+	#java -cp ${JARFILE} org.cicirello.experiments.cyclemutation.QAPExperimentsVersionTwoSA 100 > ${pathToDataFiles}/qap.SA100v2.txt
 
 # Tune tournament size for tournament selection and truncation threshold for truncation selection
 	
@@ -91,4 +91,5 @@ tuningdata:
 	
 .PHONY: more
 more:
-	
+	java -cp ${JARFILE} org.cicirello.experiments.cyclemutation.QAPExperimentsSA 50 > ${pathToDataFiles}/qap.SA50.txt
+	$(py) src/analysis/summarize-stats.py ${pathToDataFiles}/qap.SA50.txt graph 1 2 > ${pathToDataFiles}/summary.qap.SA50.txt
