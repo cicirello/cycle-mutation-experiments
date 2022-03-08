@@ -93,3 +93,5 @@ tuningdata:
 more:
 	java -cp ${JARFILE} org.cicirello.experiments.cyclemutation.QAPExperimentsSA 50 > ${pathToDataFiles}/qap.SA50.txt
 	$(py) src/analysis/summarize-stats.py ${pathToDataFiles}/qap.SA50.txt graph 1 2 > ${pathToDataFiles}/summary.qap.SA50.txt
+	java -cp ${JARFILE} org.cicirello.experiments.cyclemutation.QAPExperiments 50 > ${pathToDataFiles}/qap.50.txt
+	$(py) src/analysis/summarize-stats.py ${pathToDataFiles}/qap.50.txt graph 1 2 > ${pathToDataFiles}/summary.qap.50.txt
