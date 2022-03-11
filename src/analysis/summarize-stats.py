@@ -60,7 +60,8 @@ if __name__ == "__main__" :
     baseline = "Swap"
     figureFilename = datafile[:-4] + ".svg"
     epsFilename = datafile[:-4] + ".eps"
-    xLabel = 'number of {0} (log scale)'.format("generations" if datafile.find("SA") < 0 else "evaluations")
+    xLabel = 'number of evaluations (log scale)'
+    #xLabel = 'number of {0} (log scale)'.format("generations" if datafile.find("SA") < 0 else "evaluations")
     data, headings, lengths = parse(datafile, firstInstance)
     means = { headings[i] : [] for i in range(2, len(headings)) }
     devs = { headings[i] : [] for i in range(2, len(headings)) }

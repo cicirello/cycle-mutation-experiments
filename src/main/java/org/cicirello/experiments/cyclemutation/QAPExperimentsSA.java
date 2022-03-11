@@ -45,34 +45,45 @@ public class QAPExperimentsSA {
 	 */
 	public static void main(String[] args) {
 		final int N = args.length > 0 ? Integer.parseInt(args[0]) : 100;
+		
 		final int[] COST_RANGE = {1, 50};
 		final int[] DISTANCE_RANGE = {1, 50};
 		
-		final int NUM_INSTANCES = 100;
+		final int NUM_INSTANCES = 50;
 		
 		final int MIN_EVALUATIONS = 100;
-		final int MAX_EVALUATIONS = 1000000;
+		final int MAX_EVALUATIONS = 10000000;
 		
 		ArrayList<UndoableMutationOperator<Permutation>> mutationOps = new ArrayList<UndoableMutationOperator<Permutation>>();
 		ArrayList<String> columnLabels = new ArrayList<String>();
-		mutationOps.add(new CycleMutation(8));
-		columnLabels.add("Cycle(8)");
-		mutationOps.add(new CycleMutation(7));
-		columnLabels.add("Cycle(7)");		
-		mutationOps.add(new CycleMutation(6));
-		columnLabels.add("Cycle(6)");
+		
+		mutationOps.add(new CycleMutationExperimental(0.75));
+		columnLabels.add("Cycle(0.75)");
+		
+		mutationOps.add(new CycleMutationExperimental(0.5));
+		columnLabels.add("Cycle(0.5)");
+		
+		mutationOps.add(new CycleMutationExperimental(0.25));
+		columnLabels.add("Cycle(0.25)");
+		
 		mutationOps.add(new CycleMutation(5));
 		columnLabels.add("Cycle(5)");
+		
 		mutationOps.add(new CycleMutation(4));
 		columnLabels.add("Cycle(4)");
+		
 		mutationOps.add(new CycleMutation(3));
 		columnLabels.add("Cycle(3)");
+		
 		mutationOps.add(new SwapMutation());
 		columnLabels.add("Swap");
+		
 		mutationOps.add(new InsertionMutation());
 		columnLabels.add("Insertion");
+		
 		mutationOps.add(new ReversalMutation());
 		columnLabels.add("Reversal");
+		
 		mutationOps.add(new UndoableScrambleMutation());
 		columnLabels.add("Scramble");
 		
