@@ -27,7 +27,7 @@ analysis:
 # Runs all experiments
 
 .PHONY: experiments
-experiments: qap lcs
+experiments: qap lcs tsp
 
 .PHONY: lcs
 lcs:
@@ -39,7 +39,9 @@ qap:
 	java -cp ${JARFILE} org.cicirello.experiments.cyclemutation.QAPExperimentsSA 50 > ${pathToDataFiles}/qap.SA50.txt
 	java -cp ${JARFILE} org.cicirello.experiments.cyclemutation.QAPExperiments 50 > ${pathToDataFiles}/qap.50.txt
 
-	
-.PHONY: more
-more:
-	
+.PHONY: tsp
+tsp:
+	java -cp ${JARFILE} org.cicirello.experiments.cyclemutation.TSPExperimentsSA 100 > ${pathToDataFiles}/tsp.SA100.txt
+	$(py) src/analysis/summarize-stats.py ${pathToDataFiles}/tsp.SA100.txt graph 1 2 > ${pathToDataFiles}/summary.tsp.SA100.txt
+	java -cp ${JARFILE} org.cicirello.experiments.cyclemutation.TSPExperiments 100 > ${pathToDataFiles}/tsp.100.txt
+	$(py) src/analysis/summarize-stats.py ${pathToDataFiles}/tsp.100.txt graph 1 2 > ${pathToDataFiles}/summary.tsp.100.txt
