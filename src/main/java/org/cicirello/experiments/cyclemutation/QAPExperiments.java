@@ -105,6 +105,7 @@ public class QAPExperiments {
 			System.out.print("\t" + label);
 		}
 		System.out.println();
+		
 		for (int seed = 1; seed <= NUM_INSTANCES; seed++) {
 			QuadraticAssignmentProblem problem = QuadraticAssignmentProblem.createUniformRandomInstance(
 				N, 
