@@ -109,7 +109,7 @@ if __name__ == "__main__" :
         print()
 
     if generateGraphs :
-        w = 3.3 #2.98
+        w = 4.0 #3.3 #2.98
         h = w
         matplotlib.pyplot.rc('font', size=8)
         matplotlib.pyplot.rc('text', usetex=True)
