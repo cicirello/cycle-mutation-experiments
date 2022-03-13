@@ -45,4 +45,3 @@ qap:
 tsp:
 	java -cp ${JARFILE} org.cicirello.experiments.cyclemutation.TSPExperimentsSA 100 > ${pathToDataFiles}/tsp.SA100.txt
 	java -cp ${JARFILE} org.cicirello.experiments.cyclemutation.TSPExperiments 100 > ${pathToDataFiles}/tsp.100.txt
-	
