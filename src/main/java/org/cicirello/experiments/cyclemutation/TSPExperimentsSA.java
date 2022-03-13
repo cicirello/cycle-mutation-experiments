@@ -26,18 +26,18 @@ import org.cicirello.search.operators.permutations.InsertionMutation;
 import org.cicirello.search.operators.permutations.ReversalMutation;
 import org.cicirello.search.operators.permutations.CycleMutation;
 import org.cicirello.search.operators.permutations.UndoableScrambleMutation;
-import org.cicirello.search.problems.QuadraticAssignmentProblem;
+import org.cicirello.search.problems.tsp.RandomTSPMatrix;
 import org.cicirello.search.sa.SimulatedAnnealing;
 import org.cicirello.search.ProgressTracker;
 import org.cicirello.search.operators.permutations.PermutationInitializer;
 
 /**
- * Experiments with the Quadratic Assignment Problem and with Simulated Annealing.
+ * Experiments with the Traveling Salesperson Problem and with Simulated Annealing.
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-public class QAPExperimentsVersionTwoSA {
+public class TSPExperimentsSA {
 	
 	/**
 	 * Runs the experiments.
@@ -45,31 +45,46 @@ public class QAPExperimentsVersionTwoSA {
 	 */
 	public static void main(String[] args) {
 		final int N = args.length > 0 ? Integer.parseInt(args[0]) : 100;
-		final int[] COST_RANGE = {1, 50};
-		final int[] DISTANCE_RANGE = {1, 50};
 		
-		final int NUM_INSTANCES = 100;
+		final int MAX_DISTANCE = 1000;
+		
+		final int NUM_INSTANCES = 50;
 		
 		final int MIN_EVALUATIONS = 100;
-		final int MAX_EVALUATIONS = 1000000;
+		final int MAX_EVALUATIONS = 10000000;
 		
 		ArrayList<UndoableMutationOperator<Permutation>> mutationOps = new ArrayList<UndoableMutationOperator<Permutation>>();
 		ArrayList<String> columnLabels = new ArrayList<String>();
 		
+		mutationOps.add(new CycleMutationExperimental(0.75));
+		columnLabels.add("Cycle(0.75)");
+		
 		mutationOps.add(new CycleMutationExperimental(0.5));
 		columnLabels.add("Cycle(0.5)");
 		
-		mutationOps.add(new CycleMutationExperimental(0.4));
-		columnLabels.add("Cycle(0.4)");
+		mutationOps.add(new CycleMutationExperimental(0.25));
+		columnLabels.add("Cycle(0.25)");
 		
-		mutationOps.add(new CycleMutationExperimental(0.3));
-		columnLabels.add("Cycle(0.3)");
+		mutationOps.add(new CycleMutation(5));
+		columnLabels.add("Cycle(5)");
 		
-		mutationOps.add(new CycleMutationExperimental(0.2));
-		columnLabels.add("Cycle(0.2)");
+		mutationOps.add(new CycleMutation(4));
+		columnLabels.add("Cycle(4)");
 		
-		mutationOps.add(new CycleMutationExperimental(0.1));
-		columnLabels.add("Cycle(0.1)");
+		mutationOps.add(new CycleMutation(3));
+		columnLabels.add("Cycle(3)");
+		
+		mutationOps.add(new SwapMutation());
+		columnLabels.add("Swap");
+		
+		mutationOps.add(new InsertionMutation());
+		columnLabels.add("Insertion");
+		
+		mutationOps.add(new ReversalMutation());
+		columnLabels.add("Reversal");
+		
+		mutationOps.add(new UndoableScrambleMutation());
+		columnLabels.add("Scramble");
 		
 		System.out.print("Instance\tEvaluations");
 		for (String label : columnLabels) {
@@ -77,12 +92,11 @@ public class QAPExperimentsVersionTwoSA {
 		}
 		System.out.println();
 		for (int seed = 1; seed <= NUM_INSTANCES; seed++) {
-			QuadraticAssignmentProblem problem = QuadraticAssignmentProblem.createUniformRandomInstance(
+			RandomTSPMatrix.Integer problem = new RandomTSPMatrix.Integer(
 				N, 
-				COST_RANGE[0], 
-				COST_RANGE[1],
-				DISTANCE_RANGE[0],
-				DISTANCE_RANGE[1],
+				MAX_DISTANCE, 
+				true,
+				false,
 				seed
 			);
 			
