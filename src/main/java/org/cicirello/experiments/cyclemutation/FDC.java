@@ -31,6 +31,7 @@ import org.cicirello.permutations.distance.ScrambleDistance;
 import org.cicirello.math.stats.Statistics;
 import java.util.HashSet;
 import java.util.ArrayList;
+import java.util.SplittableRandom;
 
 /**
  * Computes FDC for one small instance of each of the TSP, QAP, and LCS problems,
@@ -99,19 +100,52 @@ public class FDC {
 		r = correlationsToLastRow(data);
 		printResults("LCS", r, editOperationNames);
 		
-		QuadraticAssignmentProblem qap = QuadraticAssignmentProblem.createUniformRandomInstance(
+		QuadraticAssignmentProblem qap = createQAPInstanceWithSingleKnownOptimal(N, 42);
+		/*QuadraticAssignmentProblem.createUniformRandomInstance(
 			N, // instance size
 			1, // min cost
 			50, // max cost
 			1, // min distance
 			50, // max cost
 			3 // seed
-		);
+		);*/
 		
 		allBest = computeSetOfBestPermutations(N, qap);
+		System.out.println(allBest.size());
 		data = calculateDataForFDC(N, allBest, qap, distances);
 		r = correlationsToLastRow(data);
 		printResults("QAP", r, editOperationNames);
+	}
+	
+	private static QuadraticAssignmentProblem createQAPInstanceWithSingleKnownOptimal(int n, long seed) {
+		int[][] cost = new int[n][n];
+		int[][] distance = new int[n][n];
+		SplittableRandom gen = new SplittableRandom(seed);
+		Permutation p = new Permutation(n, gen);
+		int[] values = new int[n*n-n];
+		for (int i = 0; i < values.length; i++) {
+			values[i] = i + 1;
+		}
+		for (int i = values.length - 1; i > 0; i--) {
+			int j = gen.nextInt(i+1);
+			if (i != j) {
+				int temp = values[i];
+				values[i] = values[j];
+				values[j] = temp;
+			}
+		}
+		int max = n * n - n;
+		int k = 0;
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < n; j++) {
+				if (i!=j) {
+					cost[i][j] = 10 * values[k];
+					distance[p.get(i)][p.get(j)] = 10 * (max + 1 - values[k]);
+					k++;
+				}
+			}
+		}
+		return QuadraticAssignmentProblem.createInstance(cost, distance);
 	}
 	
 	private static void printResults(String problemName, double[] r, ArrayList<String> editOperationNames) {
