@@ -26,6 +26,12 @@ analysis:
 	$(py) src/analysis/summarize-stats.py ${pathToDataFiles}/tsp.SA100.txt graph 1 2 > ${pathToDataFiles}/summary.tsp.SA100.txt
 	$(py) src/analysis/summarize-stats.py ${pathToDataFiles}/tsp.100.txt graph 1 2 > ${pathToDataFiles}/summary.tsp.100.txt
 
+# Calculates FDC for a few small instances of TSP, LCS, and QAP
+
+.PHONY: fdc
+fdc:
+	java -cp ${JARFILE} org.cicirello.experiments.cyclemutation.FDC > ${pathToDataFiles}/fdc.txt
+
 # Runs all experiments
 
 .PHONY: experiments
