@@ -35,6 +35,14 @@ public final class CycleDistance implements NormalizedPermutationDistanceMeasure
 	private final int maxCycleLength;
 	
 	/**
+	 * Constructs the distance measurer as specified in the class documentation, but such
+	 * that any length cycle is considered an atomic edit operation.
+	 */
+	public CycleDistance() {
+		maxCycleLength = 0;
+	}
+	
+	/**
 	 * Constructs the distance measurer as specified in the class documentation.
 	 * @param maxCycleLength The maximum length cycle that is considered an atomic edit operation
 	 */
@@ -78,11 +86,15 @@ public final class CycleDistance implements NormalizedPermutationDistanceMeasure
 				j = p2.get(i);
 				i = invP1[j];
             }
-			while (cycleLength > maxCycleLength) {
-				cycleCount++;
-				cycleLength -= (maxCycleLength - 1);
-			}
-			if (cycleLength > 0) {
+			if (maxCycleLength > 0) {
+				while (cycleLength > maxCycleLength) {
+					cycleCount++;
+					cycleLength -= (maxCycleLength - 1);
+				}
+				if (cycleLength > 0) {
+					cycleCount++;
+				}
+			} else {
 				cycleCount++;
 			}
 			for (i = iLast + 1; i < used.length; i++) {
