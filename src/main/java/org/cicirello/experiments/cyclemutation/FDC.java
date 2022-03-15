@@ -20,7 +20,7 @@ package org.cicirello.experiments.cyclemutation;
 
 import org.cicirello.permutations.Permutation;
 import org.cicirello.search.problems.IntegerCostOptimizationProblem;
-import org.cicirello.search.problems.tsp.RandomTSPMatrix;
+import org.cicirello.search.problems.tsp.TSP;
 import org.cicirello.search.problems.LargestCommonSubgraph;
 import org.cicirello.search.problems.QuadraticAssignmentProblem;
 import org.cicirello.permutations.distance.PermutationDistanceMeasurer;
@@ -80,25 +80,14 @@ public class FDC {
 		distances.add(new ScrambleDistance());
 		editOperationNames.add("Scramble");
 		
-		RandomTSPMatrix.Integer tsp = new RandomTSPMatrix.Integer(
-			N,  // num cities
-			1000, // max edge distance 
-			true,
-			false,
-			1 // seed
-		);
+		TSP.Integer tsp = createSimpleCircularTSPInstance(N);
 		
 		HashSet<Permutation> allBest = computeSetOfBestPermutations(N, tsp);
 		double[][] data = calculateDataForFDC(N, allBest, tsp, distances);
 		double[] r = correlationsToLastRow(data);
 		printResults("TSP", r, editOperationNames);
 		
-		LargestCommonSubgraph lcs = new LargestCommonSubgraph(
-			N, // num graph vertexes
-			0.5, // graph density
-			true,
-			2 // seed
-		);
+		LargestCommonSubgraph lcs = createLCSInstancePetersen(42);
 		
 		allBest = computeSetOfBestPermutations(N, lcs);
 		data = calculateDataForFDC(N, allBest, lcs, distances);
@@ -108,9 +97,57 @@ public class FDC {
 		QuadraticAssignmentProblem qap = createQAPInstanceWithSingleKnownOptimal(N, 42);
 		
 		allBest = computeSetOfBestPermutations(N, qap);
+		System.out.println(allBest.size());
 		data = calculateDataForFDC(N, allBest, qap, distances);
 		r = correlationsToLastRow(data);
 		printResults("QAP", r, editOperationNames);
+	}
+	
+	private static TSP.Integer createSimpleCircularTSPInstance(int n) {
+		// Generate city locations: on a circle centered at (0,0).
+		final double RADIUS = 10;
+		double[] x = new double[n];
+		double[] y = new double[n];
+		double angle = 0.0;
+		final double DELTA_A = 2.0 * Math.PI / n;
+		for (int i = 0; i < n; i++) {
+			x[i] = RADIUS * Math.cos(angle);
+			y[i] = RADIUS * Math.sin(angle);
+			angle += DELTA_A;
+		}
+		
+		// 2N optimal solutions to this... N starting cities, * 2 directions of travel around circle
+		return new TSP.Integer(x, y);
+	}
+	
+	private static LargestCommonSubgraph createLCSInstancePetersen(long seed) {
+		// The Petersen graph is strongly regular with 120 automorphisms
+		int n = 10;
+		ArrayList<LargestCommonSubgraph.Edge> edges1 = new ArrayList<LargestCommonSubgraph.Edge>();
+		edges1.add(new LargestCommonSubgraph.Edge(0, 1));
+		edges1.add(new LargestCommonSubgraph.Edge(1, 2));
+		edges1.add(new LargestCommonSubgraph.Edge(2, 3));
+		edges1.add(new LargestCommonSubgraph.Edge(3, 4));
+		edges1.add(new LargestCommonSubgraph.Edge(4, 0));
+		edges1.add(new LargestCommonSubgraph.Edge(0, 5));
+		edges1.add(new LargestCommonSubgraph.Edge(1, 6));
+		edges1.add(new LargestCommonSubgraph.Edge(2, 7));
+		edges1.add(new LargestCommonSubgraph.Edge(3, 8));
+		edges1.add(new LargestCommonSubgraph.Edge(4, 9));
+		edges1.add(new LargestCommonSubgraph.Edge(5, 7));
+		edges1.add(new LargestCommonSubgraph.Edge(6, 8));
+		edges1.add(new LargestCommonSubgraph.Edge(7, 9));
+		edges1.add(new LargestCommonSubgraph.Edge(8, 5));
+		edges1.add(new LargestCommonSubgraph.Edge(9, 6));
+		
+		SplittableRandom gen = new SplittableRandom(seed);
+		Permutation p = new Permutation(n, gen);
+		ArrayList<LargestCommonSubgraph.Edge> edges2 = new ArrayList<LargestCommonSubgraph.Edge>();
+		for (LargestCommonSubgraph.Edge e : edges1) {
+			edges2.add(new LargestCommonSubgraph.Edge(p.get(e.getU()), p.get(e.getV())));
+		}
+		
+		return new LargestCommonSubgraph(n, n, edges1, edges2);
 	}
 	
 	private static QuadraticAssignmentProblem createQAPInstanceWithSingleKnownOptimal(int n, long seed) {
