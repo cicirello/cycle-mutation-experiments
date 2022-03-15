@@ -29,8 +29,10 @@ import org.cicirello.permutations.distance.ReinsertionDistance;
 import org.cicirello.permutations.distance.CyclicEdgeDistance;
 import org.cicirello.permutations.distance.ScrambleDistance;
 import org.cicirello.math.stats.Statistics;
+import org.cicirello.math.rand.RandomIndexer;
 import java.util.HashSet;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.SplittableRandom;
 
 /**
@@ -56,6 +58,9 @@ public class FDC {
 		
 		ArrayList<PermutationDistanceMeasurer> distances = new ArrayList<PermutationDistanceMeasurer>();
 		ArrayList<String> editOperationNames = new ArrayList<String>(); 
+		
+		distances.add(new CycleDistance(5));
+		editOperationNames.add("Cycle(5)");
 		
 		distances.add(new CycleDistance(4));
 		editOperationNames.add("Cycle(4)");
@@ -101,17 +106,8 @@ public class FDC {
 		printResults("LCS", r, editOperationNames);
 		
 		QuadraticAssignmentProblem qap = createQAPInstanceWithSingleKnownOptimal(N, 42);
-		/*QuadraticAssignmentProblem.createUniformRandomInstance(
-			N, // instance size
-			1, // min cost
-			50, // max cost
-			1, // min distance
-			50, // max cost
-			3 // seed
-		);*/
 		
 		allBest = computeSetOfBestPermutations(N, qap);
-		System.out.println(allBest.size());
 		data = calculateDataForFDC(N, allBest, qap, distances);
 		r = correlationsToLastRow(data);
 		printResults("QAP", r, editOperationNames);
@@ -122,25 +118,29 @@ public class FDC {
 		int[][] distance = new int[n][n];
 		SplittableRandom gen = new SplittableRandom(seed);
 		Permutation p = new Permutation(n, gen);
-		int[] values = new int[n*n-n];
-		for (int i = 0; i < values.length; i++) {
-			values[i] = i + 1;
+		int max = n * n - n;
+		int[][] values = new int[2][max];
+		for (int i = 0; i < max; i++) {
+			values[1][max-1-i] = values[0][i] = i + 1;
 		}
-		for (int i = values.length - 1; i > 0; i--) {
+		for (int i = max - 1; i > 0; i--) {
 			int j = gen.nextInt(i+1);
 			if (i != j) {
-				int temp = values[i];
-				values[i] = values[j];
-				values[j] = temp;
+				int temp = values[0][i];
+				values[0][i] = values[0][j];
+				values[0][j] = temp;
+				temp = values[1][i];
+				values[1][i] = values[1][j];
+				values[1][j] = temp;
 			}
 		}
-		int max = n * n - n;
+		
 		int k = 0;
 		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < n; j++) {
 				if (i!=j) {
-					cost[i][j] = 10 * values[k];
-					distance[p.get(i)][p.get(j)] = 10 * (max + 1 - values[k]);
+					cost[i][j] = values[0][k];
+					distance[p.get(i)][p.get(j)] = values[1][k];
 					k++;
 				}
 			}
