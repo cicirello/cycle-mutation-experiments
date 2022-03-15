@@ -59,6 +59,9 @@ public class FDC {
 		ArrayList<PermutationDistanceMeasurer> distances = new ArrayList<PermutationDistanceMeasurer>();
 		ArrayList<String> editOperationNames = new ArrayList<String>(); 
 		
+		distances.add(new CycleDistance());
+		editOperationNames.add("Cycle(inf)");
+		
 		distances.add(new CycleDistance(5));
 		editOperationNames.add("Cycle(5)");
 		
