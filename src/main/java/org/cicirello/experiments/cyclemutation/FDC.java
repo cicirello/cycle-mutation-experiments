@@ -93,11 +93,10 @@ public class FDC {
 		data = calculateDataForFDC(N, allBest, lcs, distances);
 		r = correlationsToLastRow(data);
 		printResults("LCS", r, editOperationNames);
-		
-		QuadraticAssignmentProblem qap = createQAPInstanceWithSingleKnownOptimal(N, 42);
+
+		QuadraticAssignmentProblem qap = createQAPInstanceWithKnownOptimal(N, 42);
 		
 		allBest = computeSetOfBestPermutations(N, qap);
-		System.out.println(allBest.size());
 		data = calculateDataForFDC(N, allBest, qap, distances);
 		r = correlationsToLastRow(data);
 		printResults("QAP", r, editOperationNames);
@@ -150,7 +149,7 @@ public class FDC {
 		return new LargestCommonSubgraph(n, n, edges1, edges2);
 	}
 	
-	private static QuadraticAssignmentProblem createQAPInstanceWithSingleKnownOptimal(int n, long seed) {
+	private static QuadraticAssignmentProblem createQAPInstanceWithKnownOptimal(int n, long seed) {
 		int[][] cost = new int[n][n];
 		int[][] distance = new int[n][n];
 		SplittableRandom gen = new SplittableRandom(seed);
