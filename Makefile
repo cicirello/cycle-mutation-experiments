@@ -30,7 +30,7 @@ analysis:
 
 .PHONY: fdc
 fdc:
-	java -cp ${JARFILE} org.cicirello.experiments.cyclemutation.FDC
+	java -cp ${JARFILE} org.cicirello.experiments.cyclemutation.FDC > ${pathToDataFiles}/fdc.txt
 
 # Runs all experiments
 
