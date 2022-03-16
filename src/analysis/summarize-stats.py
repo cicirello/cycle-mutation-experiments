@@ -109,9 +109,9 @@ if __name__ == "__main__" :
         print()
 
     if generateGraphs :
-        w = 4.0 #3.3 #2.98
+        w = 4.2 #3.3 #2.98
         h = w
-        matplotlib.pyplot.rc('font', size=8)
+        matplotlib.pyplot.rc('font', size=9)
         matplotlib.pyplot.rc('text', usetex=True)
         fig, ax = matplotlib.pyplot.subplots(figsize=(w,h), constrained_layout=True)
         matplotlib.pyplot.xlabel(xLabel)
