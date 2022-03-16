@@ -10,7 +10,6 @@ pathToDataFiles = "data"
 .PHONY: build
 build:
 	mvn clean package
-	
 
 # Summarizes the experimental data, such as statistics, graphs, etc
 
@@ -51,3 +50,10 @@ qap:
 tsp:
 	java -cp ${JARFILE} org.cicirello.experiments.cyclemutation.TSPExperimentsSA 100 > ${pathToDataFiles}/tsp.SA100.txt
 	java -cp ${JARFILE} org.cicirello.experiments.cyclemutation.TSPExperiments 100 > ${pathToDataFiles}/tsp.100.txt
+
+.PHONY: srg
+srg:
+	java -cp ${JARFILE} org.cicirello.experiments.cyclemutation.LCSExperimentsStronglyRegularSA > ${pathToDataFiles}/lcs.SAsrg.txt
+	$(py) src/analysis/summarize-stats.py ${pathToDataFiles}/lcs.SAsrg.txt graph 1 2 > ${pathToDataFiles}/summary.lcs.SAsrg.txt
+	java -cp ${JARFILE} org.cicirello.experiments.cyclemutation.LCSExperimentsStronglyRegular > ${pathToDataFiles}/lcs.srg.txt
+	$(py) src/analysis/summarize-stats.py ${pathToDataFiles}/lcs.srg.txt graph 1 2 > ${pathToDataFiles}/summary.lcs.srg.txt
