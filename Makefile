@@ -27,6 +27,17 @@ analysis:
 	$(py) src/analysis/summarize-stats.py ${pathToDataFiles}/tsp.SA100.txt graph 1 2 > ${pathToDataFiles}/summary.tsp.SA100.txt
 	$(py) src/analysis/summarize-stats.py ${pathToDataFiles}/tsp.100.txt graph 1 2 > ${pathToDataFiles}/summary.tsp.100.txt
 
+.PHONY: epstopdf
+epstopdf:
+	epstopdf ${pathToDataFiles}/lcs.50.eps
+	epstopdf ${pathToDataFiles}/lcs.SA50.eps
+	epstopdf ${pathToDataFiles}/lcs.srg.eps
+	epstopdf ${pathToDataFiles}/lcs.SAsrg.eps
+	epstopdf ${pathToDataFiles}/qap.50.eps
+	epstopdf ${pathToDataFiles}/qap.SA50.eps
+	epstopdf ${pathToDataFiles}/tsp.100.eps
+	epstopdf ${pathToDataFiles}/tsp.SA100.eps
+
 # Calculates FDC for a few small instances of TSP, LCS, and QAP
 
 .PHONY: fdc
