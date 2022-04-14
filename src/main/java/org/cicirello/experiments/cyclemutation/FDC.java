@@ -192,7 +192,7 @@ public class FDC {
 		System.out.println("FDC Results for " + problemName);
 		System.out.println("------------------------------");
 		System.out.println("Note: Computed using costs for minimization problems rather than fitness,");
-		System.out.println("so sign may be opposite what what normally be expected.");
+		System.out.println("so sign may be opposite what should normally be expected.");
 		System.out.println();
 		for (int i = 0; i < r.length; i++) {
 			System.out.printf("%9s\t%.4f\n", editOperationNames.get(i), r[i]);
