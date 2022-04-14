@@ -62,13 +62,13 @@ public class FDC {
 		distances.add(new CycleDistance());
 		editOperationNames.add("Cycle(inf)");
 		
-		distances.add(new CycleDistance(5));
+		distances.add(new KCycleDistance(5));
 		editOperationNames.add("Cycle(5)");
 		
-		distances.add(new CycleDistance(4));
+		distances.add(new KCycleDistance(4));
 		editOperationNames.add("Cycle(4)");
 		
-		distances.add(new CycleDistance(3));
+		distances.add(new KCycleDistance(3));
 		editOperationNames.add("Cycle(3)");
 		
 		distances.add(new InterchangeDistance());

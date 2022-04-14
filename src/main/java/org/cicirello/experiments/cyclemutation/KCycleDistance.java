@@ -22,21 +22,24 @@ import org.cicirello.permutations.Permutation;
 import org.cicirello.permutations.distance.NormalizedPermutationDistanceMeasurer;
 
 /**
- * <p>Cycle distance is the count of the number of non-singleton permutation cycles
- * between a pair of permutations.</p>
+ * <p>K-Cycle distance is the count of the number of non-singleton permutation cycles
+ * of length at most K.</p>
  *
  * <p>Runtime: O(n), where n is the permutation length.</p>
  * 
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-public final class CycleDistance implements NormalizedPermutationDistanceMeasurer {
+public final class KCycleDistance implements NormalizedPermutationDistanceMeasurer {
+	
+	private final int maxCycleLength;
 	
 	/**
 	 * Constructs the distance measurer as specified in the class documentation.
+	 * @param k The maximum length cycle that is considered an atomic edit operation
 	 */
-	public CycleDistance() {
-		
+	public KCycleDistance(int k) {
+		this.maxCycleLength = k;
 	}
 	
 	/**
@@ -68,12 +71,22 @@ public final class CycleDistance implements NormalizedPermutationDistanceMeasure
 		
 		while (i < used.length) {
 			int j = p1.get(i);
+			int cycleLength = 0;
 			while (!used[j]) {
 				used[j] = true;
+				cycleLength++;
 				j = p2.get(i);
 				i = invP1[j];
             }
-			cycleCount++;
+			
+			while (cycleLength > maxCycleLength) {
+				cycleCount++;
+				cycleLength -= (maxCycleLength - 1);
+			}
+			if (cycleLength > 0) {
+				cycleCount++;
+			}
+			
 			for (i = iLast + 1; i < used.length; i++) {
 				if (!used[p1.get(i)]) {  
 					break; 
