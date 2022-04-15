@@ -79,11 +79,14 @@ public final class KCycleDistance implements NormalizedPermutationDistanceMeasur
 				i = invP1[j];
             }
 			
-			while (cycleLength > maxCycleLength) {
-				cycleCount++;
-				cycleLength -= (maxCycleLength - 1);
-			}
-			if (cycleLength > 0) {
+			if (cycleLength > maxCycleLength) {
+				cycleCount += (cycleLength - maxCycleLength) / (maxCycleLength - 1);
+				if (((cycleLength - maxCycleLength) % (maxCycleLength - 1)) > 0) {
+					cycleCount += 2;
+				} else {
+					cycleCount++;
+				}
+			} else {
 				cycleCount++;
 			}
 			
