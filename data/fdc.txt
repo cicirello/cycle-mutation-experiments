@@ -2,7 +2,7 @@
 FDC Results for TSP
 ------------------------------
 Note: Computed using costs for minimization problems rather than fitness,
-so sign may be opposite what what normally be expected.
+so sign may be opposite what should normally be expected.
 
 Cycle(inf)	-0.0569
  Cycle(5)	0.1801
@@ -18,7 +18,7 @@ Insertion	0.5277
 FDC Results for LCS
 ------------------------------
 Note: Computed using costs for minimization problems rather than fitness,
-so sign may be opposite what what normally be expected.
+so sign may be opposite what should normally be expected.
 
 Cycle(inf)	0.0278
  Cycle(5)	0.5342
@@ -34,7 +34,7 @@ Insertion	0.3547
 FDC Results for QAP
 ------------------------------
 Note: Computed using costs for minimization problems rather than fitness,
-so sign may be opposite what what normally be expected.
+so sign may be opposite what should normally be expected.
 
 Cycle(inf)	0.0297
  Cycle(5)	0.1339

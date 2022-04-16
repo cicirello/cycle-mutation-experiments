@@ -22,21 +22,27 @@ import org.cicirello.permutations.Permutation;
 import org.cicirello.permutations.distance.NormalizedPermutationDistanceMeasurer;
 
 /**
- * <p>Cycle distance is the count of the number of non-singleton permutation cycles
- * between a pair of permutations.</p>
+ * <p>K-Cycle distance is the count of the number of non-singleton permutation cycles
+ * of length at most K.</p>
  *
  * <p>Runtime: O(n), where n is the permutation length.</p>
  * 
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-public final class CycleDistance implements NormalizedPermutationDistanceMeasurer {
+public final class KCycleDistance implements NormalizedPermutationDistanceMeasurer {
+	
+	private final int maxCycleLength;
+	
+	private int lastLength;
+	private int precomputedMax;
 	
 	/**
 	 * Constructs the distance measurer as specified in the class documentation.
+	 * @param k The maximum length cycle that is considered an atomic edit operation
 	 */
-	public CycleDistance() {
-		
+	public KCycleDistance(int k) {
+		this.maxCycleLength = k;
 	}
 	
 	/**
@@ -68,12 +74,25 @@ public final class CycleDistance implements NormalizedPermutationDistanceMeasure
 		
 		while (i < used.length) {
 			int j = p1.get(i);
+			int cycleLength = 0;
 			while (!used[j]) {
 				used[j] = true;
+				cycleLength++;
 				j = p2.get(i);
 				i = invP1[j];
             }
-			cycleCount++;
+			
+			if (cycleLength > maxCycleLength) {
+				cycleCount += (cycleLength - maxCycleLength) / (maxCycleLength - 1);
+				if (((cycleLength - maxCycleLength) % (maxCycleLength - 1)) > 0) {
+					cycleCount += 2;
+				} else {
+					cycleCount++;
+				}
+			} else {
+				cycleCount++;
+			}
+			
 			for (i = iLast + 1; i < used.length; i++) {
 				if (!used[p1.get(i)]) {  
 					break; 
@@ -86,6 +105,13 @@ public final class CycleDistance implements NormalizedPermutationDistanceMeasure
 	
 	@Override
 	public int max(int length) {
-		return length >> 1;
+		if (length != lastLength) {
+			length = lastLength;
+			precomputedMax = Math.max(
+				length >> 1,
+				1 + (int)Math.ceil((length-maxCycleLength)/(maxCycleLength-1.0))
+			);
+		}
+		return precomputedMax;
 	}
 }

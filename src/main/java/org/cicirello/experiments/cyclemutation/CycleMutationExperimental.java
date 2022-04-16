@@ -24,9 +24,7 @@ import org.cicirello.math.rand.RandomIndexer;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
- * <p>This class is an experimental new version of cycle mutation.</p> 
- *
- * <p>This class implements a cycle mutation on permutations, where one mutation
+ * <p>This class implements cycle(&alpha;) mutation on permutations, where one mutation
  * generates a random permutation cycle. Given the original parent permutation and
  * its mutant, a permutation cycle can be defined as follows. Imagine a graph with
  * n vertexes, where n is the permutation length. Now consider that for each index
@@ -42,7 +40,7 @@ import java.util.concurrent.ThreadLocalRandom;
  * hypothetical graph described above, there would be edges from 1 to 4, 4 to 3, and 3 to 1,
  * a cycle of length 3.</p>
  *
- * <p>This experimental version chooses the cycle size randomly from {2, 3, ..., n} where
+ * <p>The cycle(&alpha;) version of cycle mutation chooses the cycle size randomly from {2, 3, ..., n} where
  * cycle length k is chosen with probability proportional to &alpha;<sup>k-2</sup>. It then generates
  * a random permutation cycle of length k. The combination of k elements is chosen uniformly at 
  * random from all possible combinations
@@ -51,8 +49,10 @@ import java.util.concurrent.ThreadLocalRandom;
  * <p>The worst case runtime of a single call to 
  * the {@link #mutate(Permutation) mutate} method is O(n), which occurs when the randomly
  * chosen cycle length is n. However, this is a very low probability event. Lower cycle lengths
- * are given significantly higher probability, and calls where the random cycle length is small
- * (e.g., 2 or 3) will run in constant time.</p>
+ * are given significantly higher probability.
+ * The average case runtime of a single call to the 
+ * {@link #mutate(Permutation) mutate} method is O(min(n, ((2-&alpha;)/(1-&alpha;))<sup>2</sup>)).
+ * Calls where the random cycle length is small (e.g., 2 or 3) will run in constant time.</p>
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
