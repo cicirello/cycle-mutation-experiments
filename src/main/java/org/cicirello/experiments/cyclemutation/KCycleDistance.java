@@ -34,6 +34,9 @@ public final class KCycleDistance implements NormalizedPermutationDistanceMeasur
 	
 	private final int maxCycleLength;
 	
+	private int lastLength;
+	private int precomputedMax;
+	
 	/**
 	 * Constructs the distance measurer as specified in the class documentation.
 	 * @param k The maximum length cycle that is considered an atomic edit operation
@@ -102,6 +105,13 @@ public final class KCycleDistance implements NormalizedPermutationDistanceMeasur
 	
 	@Override
 	public int max(int length) {
-		return length >> 1;
+		if (length != lastLength) {
+			length = lastLength;
+			precomputedMax = Math.max(
+				length >> 1,
+				1 + (int)Math.ceil((length-maxCycleLength)/(maxCycleLength-1.0))
+			);
+		}
+		return precomputedMax;
 	}
 }
