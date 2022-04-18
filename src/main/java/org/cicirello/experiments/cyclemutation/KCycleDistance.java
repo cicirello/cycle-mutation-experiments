@@ -23,7 +23,9 @@ import org.cicirello.permutations.distance.NormalizedPermutationDistanceMeasurer
 
 /**
  * <p>K-Cycle distance is the count of the number of non-singleton permutation cycles
- * of length at most K.</p>
+ * of length at most K. Specifically, each non-singleton cycle contributes to the
+ * total distance the number of cycles of length at most K necessary to transform
+ * the cycle to all fixed points.</p>
  *
  * <p>Runtime: O(n), where n is the permutation length.</p>
  * 
