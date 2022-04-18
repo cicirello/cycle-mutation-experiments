@@ -22,29 +22,26 @@ import org.cicirello.permutations.Permutation;
 import org.cicirello.permutations.distance.NormalizedPermutationDistanceMeasurer;
 
 /**
- * <p>K-Cycle distance is the count of the number of non-singleton permutation cycles
- * of length at most K. Specifically, each non-singleton cycle contributes to the
- * total distance the number of cycles of length at most K necessary to transform
- * the cycle to all fixed points.</p>
+ * <p>Cycle edit distance is the minimum number of non-singleton permutation cycles
+ * necessary to transform permutation p1 into p2. If p1 equals p2, then this distance
+ * is 0. If p1 and p2 have a single permutation cycle, then this distance is clearly 1
+ * since the inverse of that cycle will produce n fixed points. Otherwise, this distance
+ * is equal to 2 since it can be shown that at most 2 permutation cycle operations are
+ * necessary to transform any permutation of length n into any other.</p>
  *
  * <p>Runtime: O(n), where n is the permutation length.</p>
  * 
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-public final class KCycleDistance implements NormalizedPermutationDistanceMeasurer {
+public final class CycleEditDistance implements NormalizedPermutationDistanceMeasurer {
 	
-	private final int maxCycleLength;
-	
-	private int lastLength;
-	private int precomputedMax;
 	
 	/**
 	 * Constructs the distance measurer as specified in the class documentation.
-	 * @param k The maximum length cycle that is considered an atomic edit operation
 	 */
-	public KCycleDistance(int k) {
-		this.maxCycleLength = k;
+	public CycleEditDistance() {
+
 	}
 	
 	/**
@@ -70,50 +67,30 @@ public final class KCycleDistance implements NormalizedPermutationDistanceMeasur
 			}  
         }
 		
-		int[] invP1 = p1.getInverse();
-		int cycleCount = 0;
-		int iLast = i;
+		if (i >= used.length) {
+			return 0;
+		} else {
 		
-		while (i < used.length) {
+			int[] invP1 = p1.getInverse();
+			int iLast = i;
+		
 			int j = p1.get(i);
-			int cycleLength = 0;
 			while (!used[j]) {
 				used[j] = true;
-				cycleLength++;
 				j = p2.get(i);
 				i = invP1[j];
             }
-			
-			if (cycleLength > maxCycleLength) {
-				cycleCount += (cycleLength - maxCycleLength) / (maxCycleLength - 1);
-				if (((cycleLength - maxCycleLength) % (maxCycleLength - 1)) > 0) {
-					cycleCount += 2;
-				} else {
-					cycleCount++;
-				}
-			} else {
-				cycleCount++;
-			}
-			
 			for (i = iLast + 1; i < used.length; i++) {
 				if (!used[p1.get(i)]) {  
-					break; 
+					return 2; 
 				}
 			}
-			iLast = i;
+			return 1;
 		}
-		return cycleCount;
 	}
 	
 	@Override
 	public int max(int length) {
-		if (length != lastLength) {
-			length = lastLength;
-			precomputedMax = Math.max(
-				length >> 1,
-				1 + (int)Math.ceil((length-maxCycleLength)/(maxCycleLength-1.0))
-			);
-		}
-		return precomputedMax;
+		return length >= 4 ? 2 : (length >= 2 ? 1 :0);
 	}
 }

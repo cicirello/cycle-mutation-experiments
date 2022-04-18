@@ -59,17 +59,20 @@ public class FDC {
 		ArrayList<PermutationDistanceMeasurer> distances = new ArrayList<PermutationDistanceMeasurer>();
 		ArrayList<String> editOperationNames = new ArrayList<String>(); 
 		
+		distances.add(new CycleEditDistance());
+		editOperationNames.add("CycleEdit");
+		
 		distances.add(new CycleDistance());
-		editOperationNames.add("Cycle(inf)");
+		editOperationNames.add("Cycle");
 		
 		distances.add(new KCycleDistance(5));
-		editOperationNames.add("Cycle(5)");
+		editOperationNames.add("5-Cycle");
 		
 		distances.add(new KCycleDistance(4));
-		editOperationNames.add("Cycle(4)");
+		editOperationNames.add("4-Cycle");
 		
 		distances.add(new KCycleDistance(3));
-		editOperationNames.add("Cycle(3)");
+		editOperationNames.add("3-Cycle");
 		
 		distances.add(new InterchangeDistance());
 		editOperationNames.add("Swap");
