@@ -1,0 +1,96 @@
+/*
+ * Experiments with the new cycle mutation operator.
+ * Copyright (C) 2022 Vincent A. Cicirello
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+ 
+package org.cicirello.experiments.cyclemutation;
+
+import org.cicirello.permutations.Permutation;
+import org.cicirello.permutations.distance.NormalizedPermutationDistanceMeasurer;
+
+/**
+ * <p>Cycle edit distance is the minimum number of non-singleton permutation cycles
+ * necessary to transform permutation p1 into p2. If p1 equals p2, then this distance
+ * is 0. If p1 and p2 have a single permutation cycle, then this distance is clearly 1
+ * since the inverse of that cycle will produce n fixed points. Otherwise, this distance
+ * is equal to 2 since it can be shown that at most 2 permutation cycle operations are
+ * necessary to transform any permutation of length n into any other.</p>
+ *
+ * <p>Runtime: O(n), where n is the permutation length.</p>
+ * 
+ * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
+ * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
+ */
+public final class CycleEditDistance implements NormalizedPermutationDistanceMeasurer {
+	
+	
+	/**
+	 * Constructs the distance measurer as specified in the class documentation.
+	 */
+	public CycleEditDistance() {
+
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @throws IllegalArgumentException if p1.length() is not equal to p2.length().
+	 */
+    @Override
+	public int distance(Permutation p1, Permutation p2) {
+		if (p1.length() != p2.length()) {
+			throw new IllegalArgumentException("Permutations must be the same length");
+		}
+        boolean[] used = new boolean[p1.length()];
+		for (int k = 0; k < used.length; k++) {
+			if (p1.get(k) == p2.get(k)) {
+				used[p1.get(k)] = true;
+			}
+		}
+		int i = 0;
+		for (i = 0; i < used.length; i++) {
+			if (!used[p1.get(i)]) { 
+				break; 
+			}  
+        }
+		
+		if (i >= used.length) {
+			return 0;
+		} else {
+		
+			int[] invP1 = p1.getInverse();
+			int iLast = i;
+		
+			int j = p1.get(i);
+			while (!used[j]) {
+				used[j] = true;
+				j = p2.get(i);
+				i = invP1[j];
+            }
+			for (i = iLast + 1; i < used.length; i++) {
+				if (!used[p1.get(i)]) {  
+					return 2; 
+				}
+			}
+			return 1;
+		}
+	}
+	
+	@Override
+	public int max(int length) {
+		return length >= 4 ? 2 : (length >= 2 ? 1 :0);
+	}
+}
