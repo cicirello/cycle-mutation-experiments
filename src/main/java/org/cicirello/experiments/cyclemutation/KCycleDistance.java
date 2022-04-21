@@ -85,12 +85,15 @@ public final class KCycleDistance implements NormalizedPermutationDistanceMeasur
             }
 			
 			if (cycleLength > maxCycleLength) {
+				cycleCount += (int)Math.ceil((cycleLength-1.0)/(maxCycleLength-1.0));
+				/*
 				cycleCount += (cycleLength - maxCycleLength) / (maxCycleLength - 1);
 				if (((cycleLength - maxCycleLength) % (maxCycleLength - 1)) > 0) {
 					cycleCount += 2;
 				} else {
 					cycleCount++;
 				}
+				*/
 			} else {
 				cycleCount++;
 			}
@@ -111,7 +114,7 @@ public final class KCycleDistance implements NormalizedPermutationDistanceMeasur
 			length = lastLength;
 			precomputedMax = Math.max(
 				length >> 1,
-				1 + (int)Math.ceil((length-maxCycleLength)/(maxCycleLength-1.0))
+				(int)Math.ceil((length-1.0)/(maxCycleLength-1.0))
 			);
 		}
 		return precomputedMax;
