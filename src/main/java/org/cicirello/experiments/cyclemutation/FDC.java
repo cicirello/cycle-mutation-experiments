@@ -91,21 +91,21 @@ public class FDC {
 		HashSet<Permutation> allBest = computeSetOfBestPermutations(N, tsp);
 		double[][] data = calculateDataForFDC(N, allBest, tsp, distances);
 		double[] r = correlationsToLastRow(data);
-		printResults("TSP", r, editOperationNames);
+		printResults("TSP", r, editOperationNames, false);
 		
 		LargestCommonSubgraph lcs = createLCSInstancePetersen(42);
 		
 		allBest = computeSetOfBestPermutations(N, lcs);
 		data = calculateDataForFDC(N, allBest, lcs, distances);
 		r = correlationsToLastRow(data);
-		printResults("LCS", r, editOperationNames);
+		printResults("LCS", r, editOperationNames, true);
 
 		QuadraticAssignmentProblem qap = createQAPInstanceWithKnownOptimal(N, 42);
 		
 		allBest = computeSetOfBestPermutations(N, qap);
 		data = calculateDataForFDC(N, allBest, qap, distances);
 		r = correlationsToLastRow(data);
-		printResults("QAP", r, editOperationNames);
+		printResults("QAP", r, editOperationNames, false);
 	}
 	
 	private static TSP.Integer createSimpleCircularTSPInstance(int n) {
@@ -190,15 +190,17 @@ public class FDC {
 		return QuadraticAssignmentProblem.createInstance(cost, distance);
 	}
 	
-	private static void printResults(String problemName, double[] r, ArrayList<String> editOperationNames) {
+	private static void printResults(String problemName, double[] r, ArrayList<String> editOperationNames, boolean isFitness) {
 		System.out.println("------------------------------");
 		System.out.println("FDC Results for " + problemName);
 		System.out.println("------------------------------");
-		System.out.println("Note: Computed using costs for minimization problems rather than fitness,");
-		System.out.println("so sign may be opposite what should normally be expected.");
+		if (!isFitness) {
+			System.out.println("Note: Computed using costs for minimization problems rather than fitness,");
+			System.out.println("so sign may be opposite what should normally be expected.");
+		}
 		System.out.println();
 		for (int i = 0; i < r.length; i++) {
-			System.out.printf("%9s\t%.4f\n", editOperationNames.get(i), r[i]);
+			System.out.printf("%9s\t%.4f\n", editOperationNames.get(i), isFitness ? -r[i] : r[i]);
 		}
 		System.out.println("------------------------------");
 		System.out.println();
