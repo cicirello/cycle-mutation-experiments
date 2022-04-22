@@ -1,5 +1,5 @@
-# Experiments for article in the journal MONE 2022.
-# Copyright (C) 2022  Vincent A. Cicirello
+# Experiments for article in the journal Applied Sciences 2022.
+# Copyright (C) 2022 Vincent A. Cicirello
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -38,7 +38,7 @@ def parse(filename, first = 1) :
             else :
                 row = line.split()
                 if len(row) > 2 :
-                    generations = row[1]
+                    generations = int(row[1])
                     if int(row[0]) == first :
                         lengths.append(generations)
                     for i in range(2, len(row)) :
@@ -114,6 +114,7 @@ if __name__ == "__main__" :
         matplotlib.pyplot.rc('font', size=8)
         matplotlib.pyplot.rc('text', usetex=True)
         fig, ax = matplotlib.pyplot.subplots(figsize=(w,h), constrained_layout=True)
+        ax.set_xscale('log')
         matplotlib.pyplot.xlabel(xLabel)
         matplotlib.pyplot.ylabel('average solution cost')
         for i in range(firstToGraph, len(headings)) :

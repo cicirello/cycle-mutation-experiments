@@ -1,4 +1,4 @@
-# Experiments for article in the journal MONE 2022.
+# Experiments for article in the journal Applied Sciences 2022.
 # Copyright (C) 2022  Vincent A. Cicirello
 #
 # This program is free software: you can redistribute it and/or modify
