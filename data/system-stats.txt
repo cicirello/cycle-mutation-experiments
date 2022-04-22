@@ -1,0 +1,29 @@
+OS: Windows 10
+CPU: AMD A10-5700, 3.4 GHz
+Memory: 8 GB DDR3
+
+Experiment programs
+Compiler: OpenJDK 17.0.2
+Target: Java 11
+VM: OpenJDK 64-bit Server VM Temurin-17.0.2+8 (build 17.0.2+8)
+
+Chips-n-Salsa library
+Release: 4.7.0 (from Maven Central)
+Compiler: OpenJDK 11 64-bit (compiled via Github Actions just prior to release)
+Target: Java 11
+
+JavaPermutationTools library
+Release: 3.1.1 (from Maven Central)
+Compiler: OpenJDK 11 64-bit (compiled via Github Actions just prior to release)
+Target: Java 11
+
+rho-mu library
+Release: 1.2.0 (from Maven Central)
+Compiler: OpenJDK 11 64-bit (compiled via Github Actions just prior to release)
+Target: Java 11
+
+org.cicirello.core
+Release: 1.1.0 (from Maven Central)
+Compiler: OpenJDK 11 64-bit (compiled via Github Actions just prior to release)
+Target: Java 11
+
