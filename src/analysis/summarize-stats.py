@@ -114,6 +114,7 @@ if __name__ == "__main__" :
         matplotlib.pyplot.rc('font', size=8)
         matplotlib.pyplot.rc('text', usetex=True)
         fig, ax = matplotlib.pyplot.subplots(figsize=(w,h), constrained_layout=True)
+        ax.yaxis.set_major_formatter(matplotlib.ticker.StrMethodFormatter('{x:,.0f}'))
         ax.set_xscale('log')
         matplotlib.pyplot.xlabel(xLabel)
         matplotlib.pyplot.ylabel('average solution cost')
