@@ -23,7 +23,14 @@ import org.cicirello.permutations.distance.NormalizedPermutationDistanceMeasurer
 
 /**
  * <p>Cycle distance is the count of the number of non-singleton permutation cycles
- * between a pair of permutations.</p>
+ * between a pair of permutations. Cycle distance is a semi-metric, satisfying all
+ * of the metric properties except for the triangle inequality.</p>
+ *
+ * <p>It was introduced in the following article:</p>
+ *
+ * <p>Vincent A. Cicirello. 2022. Cycle Mutation: Evolving Permutations via Cycle Induction. 
+ * <i>Applied Sciences</i>, 12, 11, Article 5506 (May 2022). 
+ * <a href="https://doi.org/10.3390/app12115506">https://doi.org/10.3390/app12115506</a></p>
  *
  * <p>Runtime: O(n), where n is the permutation length.</p>
  * 

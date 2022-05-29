@@ -25,7 +25,15 @@ import org.cicirello.permutations.distance.NormalizedPermutationDistanceMeasurer
  * <p>K-Cycle distance is the count of the number of non-singleton permutation cycles
  * of length at most K. Specifically, each non-singleton cycle contributes to the
  * total distance the number of cycles of length at most K necessary to transform
- * the cycle to all fixed points.</p>
+ * the cycle to all fixed points. K-cycle distance is a metric provided that K &le; 4.
+ * However, if K &gt; 4, it is only a semi-metric because it fails to satisfy the
+ * triangle inequality when K &ge; 5.</p>
+ *
+ * <p>K-Cycle distance was introduced in the following article:</p>
+ *
+ * <p>Vincent A. Cicirello. 2022. Cycle Mutation: Evolving Permutations via Cycle Induction. 
+ * <i>Applied Sciences</i>, 12, 11, Article 5506 (May 2022). 
+ * <a href="https://doi.org/10.3390/app12115506">https://doi.org/10.3390/app12115506</a></p>
  *
  * <p>Runtime: O(n), where n is the permutation length.</p>
  * 
@@ -86,14 +94,6 @@ public final class KCycleDistance implements NormalizedPermutationDistanceMeasur
 			
 			if (cycleLength > maxCycleLength) {
 				cycleCount += (int)Math.ceil((cycleLength-1.0)/(maxCycleLength-1.0));
-				/*
-				cycleCount += (cycleLength - maxCycleLength) / (maxCycleLength - 1);
-				if (((cycleLength - maxCycleLength) % (maxCycleLength - 1)) > 0) {
-					cycleCount += 2;
-				} else {
-					cycleCount++;
-				}
-				*/
 			} else {
 				cycleCount++;
 			}

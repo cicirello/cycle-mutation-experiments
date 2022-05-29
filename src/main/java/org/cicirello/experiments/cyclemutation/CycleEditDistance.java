@@ -27,7 +27,14 @@ import org.cicirello.permutations.distance.NormalizedPermutationDistanceMeasurer
  * is 0. If p1 and p2 have a single permutation cycle, then this distance is clearly 1
  * since the inverse of that cycle will produce n fixed points. Otherwise, this distance
  * is equal to 2 since it can be shown that at most 2 permutation cycle operations are
- * necessary to transform any permutation of length n into any other.</p>
+ * necessary to transform any permutation of length n into any other. Cycle edit distance
+ * satisfies all of the metric properties.</p>
+ *
+ * <p>Cycle edit distance was introduced in the following article:</p>
+ *
+ * <p>Vincent A. Cicirello. 2022. Cycle Mutation: Evolving Permutations via Cycle Induction. 
+ * <i>Applied Sciences</i>, 12, 11, Article 5506 (May 2022). 
+ * <a href="https://doi.org/10.3390/app12115506">https://doi.org/10.3390/app12115506</a></p>
  *
  * <p>Runtime: O(n), where n is the permutation length.</p>
  * 
