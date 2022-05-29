@@ -24,7 +24,7 @@ import org.cicirello.math.rand.RandomIndexer;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
- * <p>This class implements cycle(&alpha;) mutation on permutations, where one mutation
+ * <p>This class implements the Cycle(&alpha;) form of cycle mutation on permutations, where one mutation
  * generates a random permutation cycle. Given the original parent permutation and
  * its mutant, a permutation cycle can be defined as follows. Imagine a graph with
  * n vertexes, where n is the permutation length. Now consider that for each index
@@ -40,7 +40,7 @@ import java.util.concurrent.ThreadLocalRandom;
  * hypothetical graph described above, there would be edges from 1 to 4, 4 to 3, and 3 to 1,
  * a cycle of length 3.</p>
  *
- * <p>The cycle(&alpha;) version of cycle mutation chooses the cycle size randomly from {2, 3, ..., n} where
+ * <p>The Cycle(&alpha;) version of cycle mutation chooses the cycle size randomly from {2, 3, ..., n} where
  * cycle length k is chosen with probability proportional to &alpha;<sup>k-2</sup>. It then generates
  * a random permutation cycle of length k. The combination of k elements is chosen uniformly at 
  * random from all possible combinations
@@ -52,7 +52,14 @@ import java.util.concurrent.ThreadLocalRandom;
  * are given significantly higher probability.
  * The average case runtime of a single call to the 
  * {@link #mutate(Permutation) mutate} method is O(min(n, ((2-&alpha;)/(1-&alpha;))<sup>2</sup>)).
- * Calls where the random cycle length is small (e.g., 2 or 3) will run in constant time.</p>
+ * Thus, provided &alpha; is not close to 1, the average runtime is a constant depending upon 
+ * the value of &alpha;.</p>
+ *
+ * <p>Cycle mutation in both of its forms, including Cycle(&alpha;), was introduced in the following article:</p>
+ *
+ * <p>Vincent A. Cicirello. 2022. Cycle Mutation: Evolving Permutations via Cycle Induction. 
+ * <i>Applied Sciences</i>, 12, 11, Article 5506 (May 2022). 
+ * <a href="https://doi.org/10.3390/app12115506">https://doi.org/10.3390/app12115506</a></p>
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
