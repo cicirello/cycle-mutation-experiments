@@ -11,6 +11,15 @@ experimental data, from the following paper:
 | :--- | :--- |
 | __License__ | [![GitHub](https://img.shields.io/github/license/cicirello/cycle-mutation-experiments)](LICENSE) |
 
+## Dependencies
+
+The experiments depend upon the following libraries, and in some cases this research has 
+also contributed to these libraries:
+* [Chips-n-Salsa](https://chips-n-salsa.cicirello.org/)
+* [JavaPermutationTools](https://jpt.cicirello.org)
+* [&rho;&mu;](https://rho-mu.cicirello.org)
+* [org.cicirello.core](https://core.cicirello.org)
+
 ## Requirements to Build and Run the Experiments
 
 To build and run the experiments on your own machine, you will need the following:
