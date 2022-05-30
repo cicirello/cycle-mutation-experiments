@@ -19,9 +19,9 @@
 /**
  * <p>Code to reproduce the experiments from the following article:</p>
  *
- * <p>Vincent A. Cicirello. 2022. Cycle Mutation: Evolving Permutations via Cycle Induction. 
- * <i>Applied Sciences</i>, 12, 11, Article 5506 (May 2022). 
- * <a href="https://doi.org/10.3390/app12115506">https://doi.org/10.3390/app12115506</a></p>
+ * <p>Vincent A. Cicirello. 2022. <a href="https://www.cicirello.org/publications/applsci-12-05506.pdf">Cycle 
+ * Mutation: Evolving Permutations via Cycle Induction</a>, <i>Applied Sciences</i>, 12(11), Article 5506 (June 2022). 
+ * doi:<a href="https://doi.org/10.3390/app12115506">10.3390/app12115506</a></p>
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>

@@ -5,11 +5,20 @@ Copyright &copy; 2022 Vincent A. Cicirello
 This repository contains code to reproduce the experiments, and analysis of 
 experimental data, from the following paper:
 
-> Vincent A. Cicirello. 2022. Cycle Mutation: Evolving Permutations via Cycle Induction. *Applied Sciences*, 12, 11, Article 5506 (May 2022). https://doi.org/10.3390/app12115506
+> Vincent A. Cicirello. 2022. [Cycle Mutation: Evolving Permutations via Cycle Induction](https://www.cicirello.org/publications/applsci-12-05506.pdf), *Applied Sciences*, 12(11), Article 5506 (June 2022). doi:[10.3390/app12115506](https://doi.org/10.3390/app12115506)
 
-|  |  |
+| __Related Publication__ | [![DOI](doi.svg)](https://doi.org/10.3390/app12115506) |
 | :--- | :--- |
 | __License__ | [![GitHub](https://img.shields.io/github/license/cicirello/cycle-mutation-experiments)](LICENSE) |
+
+## Dependencies
+
+The experiments depend upon the following libraries, and in some cases this research has 
+also contributed to these libraries:
+* [Chips-n-Salsa](https://chips-n-salsa.cicirello.org/)
+* [JavaPermutationTools](https://jpt.cicirello.org)
+* [&rho;&mu;](https://rho-mu.cicirello.org)
+* [org.cicirello.core](https://core.cicirello.org)
 
 ## Requirements to Build and Run the Experiments
 
