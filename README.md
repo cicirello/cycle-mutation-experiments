@@ -7,7 +7,7 @@ experimental data, from the following paper:
 
 > Vincent A. Cicirello. 2022. [Cycle Mutation: Evolving Permutations via Cycle Induction](https://www.cicirello.org/publications/applsci-12-05506.pdf), *Applied Sciences*, 12(11), Article 5506 (June 2022). doi:[10.3390/app12115506](https://doi.org/10.3390/app12115506)
 
-|  |  |
+| __Related Publication__ | [![DOI](doi.svg)](https://doi.org/10.3390/app12115506) |
 | :--- | :--- |
 | __License__ | [![GitHub](https://img.shields.io/github/license/cicirello/cycle-mutation-experiments)](LICENSE) |
 
