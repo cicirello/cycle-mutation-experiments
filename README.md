@@ -5,7 +5,7 @@ Copyright &copy; 2022 Vincent A. Cicirello
 This repository contains code to reproduce the experiments, and analysis of 
 experimental data, from the following paper:
 
-> Vincent A. Cicirello. 2022. Cycle Mutation: Evolving Permutations via Cycle Induction. *Applied Sciences*, 12, 11, Article 5506 (May 2022). https://doi.org/10.3390/app12115506
+> Vincent A. Cicirello. 2022. Cycle Mutation: Evolving Permutations via Cycle Induction. *Applied Sciences*, 12, 11, Article 5506 (June 2022). https://doi.org/10.3390/app12115506
 
 |  |  |
 | :--- | :--- |
