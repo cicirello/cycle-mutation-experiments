@@ -10,6 +10,16 @@ pathToDataFiles = "data"
 .PHONY: build
 build:
 	mvn clean package
+	
+.PHONY: download
+download:
+ifeq ($(OS),Windows_NT)
+	if not exist target mkdir target
+else
+	mkdir -p target
+endif
+	cd target && curl -O -J -L  "https://search.maven.org/classic/remotecontent?filepath=org/cicirello/cycle-mutation-experiments/1.0.0/cycle-mutation-experiments-1.0.0-jar-with-dependencies.jar"
+
 
 # Summarizes the experimental data, such as statistics, graphs, etc
 
