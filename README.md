@@ -10,7 +10,7 @@ experimental data, from the following paper:
 | __Related Publication__ | [![DOI](doi.svg)](https://doi.org/10.3390/app12115506) |
 | :--- | :--- |
 | __License__ | [![GitHub](https://img.shields.io/github/license/cicirello/cycle-mutation-experiments)](LICENSE) |
-| __Packages and Releases__ | [![Maven Central](https://img.shields.io/maven-central/v/org.cicirello/cycle-mutation-experiments.svg?label=Maven%20Central)](https://central.sonatype.com/search?namespace=org.cicirello&q=cycle-mutation-experiments) [![GitHub release (latest by date)](https://img.shields.io/github/v/release/cicirello/cycle-mutation-experiments?logo=GitHub)](https://github.com/cicirello/cycle-mutation-experiments/releases) |
+| __Packages and Releases__ | [![Maven Central](https://img.shields.io/maven-central/v/org.cicirello/cycle-mutation-experiments.svg?label=Maven%20Central)](https://central.sonatype.com/artifact/org.cicirello/cycle-mutation-experiments/) [![GitHub release (latest by date)](https://img.shields.io/github/v/release/cicirello/cycle-mutation-experiments?logo=GitHub)](https://github.com/cicirello/cycle-mutation-experiments/releases) |
 
 ## Dependencies
 
